@@ -1,0 +1,178 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 YaBrowser/25.8.0.0 Safari/537.36" version="28.2.5" pages="4">
+  <diagram name="БОЙ" id="FQyJy2-OA30SqmC8g7-e">
+    <mxGraphModel dx="1489" dy="933" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="dx9-EV9b3HRcRzCbt3W6-1" value="Макет Окна БОЙ" style="rounded=0;whiteSpace=wrap;html=1;labelPosition=center;verticalLabelPosition=bottom;align=center;verticalAlign=top;fontStyle=1;fontSize=18;" parent="1" vertex="1">
+          <mxGeometry width="450" height="800" as="geometry" />
+        </mxCell>
+        <mxCell id="dx9-EV9b3HRcRzCbt3W6-3" value="&amp;lt;= Назад" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=1;fontSize=18;" parent="1" vertex="1">
+          <mxGeometry width="150" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="dx9-EV9b3HRcRzCbt3W6-37" value="Бой" style="rounded=0;whiteSpace=wrap;html=1;fontSize=18;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry y="640" width="150" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="dx9-EV9b3HRcRzCbt3W6-42" value="Золото:" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=1;fontSize=18;" parent="1" vertex="1">
+          <mxGeometry x="150" width="150" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="dx9-EV9b3HRcRzCbt3W6-43" value="Уровень:" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=1;fontSize=18;" parent="1" vertex="1">
+          <mxGeometry x="300" width="150" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="dx9-EV9b3HRcRzCbt3W6-44" value="Квесты" style="rounded=0;whiteSpace=wrap;html=1;fontSize=18;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="150" y="640" width="150" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="dx9-EV9b3HRcRzCbt3W6-45" value="Навыки" style="rounded=0;whiteSpace=wrap;html=1;fontSize=18;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="300" y="640" width="150" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="dx9-EV9b3HRcRzCbt3W6-48" value="Имя врага&lt;div&gt;ХП&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=1;fontSize=18;" parent="1" vertex="1">
+          <mxGeometry y="560" width="450" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="dx9-EV9b3HRcRzCbt3W6-50" value="Локация" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=1;fontSize=18;labelPosition=center;verticalLabelPosition=middle;align=center;verticalAlign=top;textShadow=0;" parent="1" vertex="1">
+          <mxGeometry y="80" width="450" height="480" as="geometry" />
+        </mxCell>
+        <mxCell id="dx9-EV9b3HRcRzCbt3W6-49" value="Враг" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=1;fontSize=18;" parent="1" vertex="1">
+          <mxGeometry x="150" y="200" width="150" height="240" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="vpm9e90vHMyE0j4hildH" name="СОЗДАНИЕ ПЕРСОНАЖА">
+    <mxGraphModel dx="1042" dy="653" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="J_gv80vWWTByX_hZ0Lcj-1" value="Макет Окна&amp;nbsp;СОЗДАНИЕ ПЕРСОНАЖА" style="rounded=0;whiteSpace=wrap;html=1;labelPosition=center;verticalLabelPosition=bottom;align=center;verticalAlign=top;fontStyle=1;fontSize=18;" parent="1" vertex="1">
+          <mxGeometry width="450" height="800" as="geometry" />
+        </mxCell>
+        <mxCell id="J_gv80vWWTByX_hZ0Lcj-2" value="&amp;lt;= Назад" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=1;fontSize=18;" parent="1" vertex="1">
+          <mxGeometry width="450" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="J_gv80vWWTByX_hZ0Lcj-3" value="Начать игру" style="rounded=0;whiteSpace=wrap;html=1;fontSize=18;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry y="640" width="450" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="J_gv80vWWTByX_hZ0Lcj-4" value="Имя персонажа" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=1;fontSize=18;" parent="1" vertex="1">
+          <mxGeometry y="560" width="450" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="J_gv80vWWTByX_hZ0Lcj-5" value="" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=1;fontSize=18;labelPosition=center;verticalLabelPosition=middle;align=center;verticalAlign=top;textShadow=0;" parent="1" vertex="1">
+          <mxGeometry y="80" width="450" height="480" as="geometry" />
+        </mxCell>
+        <mxCell id="J_gv80vWWTByX_hZ0Lcj-6" value="Маг" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=1;fontSize=18;" parent="1" vertex="1">
+          <mxGeometry y="400" width="150" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="J_gv80vWWTByX_hZ0Lcj-7" value="Персонаж" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=1;fontSize=18;" parent="1" vertex="1">
+          <mxGeometry y="80" width="225" height="320" as="geometry" />
+        </mxCell>
+        <mxCell id="J_gv80vWWTByX_hZ0Lcj-8" value="Воин" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=1;fontSize=18;" parent="1" vertex="1">
+          <mxGeometry x="150" y="400" width="150" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="J_gv80vWWTByX_hZ0Lcj-9" value="Лучник" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=1;fontSize=18;" parent="1" vertex="1">
+          <mxGeometry x="300" y="400" width="150" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="J_gv80vWWTByX_hZ0Lcj-10" value="Описание класса" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=1;fontSize=18;" parent="1" vertex="1">
+          <mxGeometry x="225" y="80" width="225" height="320" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="9YwHcE5WjL0m0sPX7yiy" name="ПРОКАЧКА">
+    <mxGraphModel dx="1489" dy="933" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="H5Puy0iPVS6YyE1OOhMD-1" value="Макет Окна ПРОКАЧКА" style="rounded=0;whiteSpace=wrap;html=1;labelPosition=center;verticalLabelPosition=bottom;align=center;verticalAlign=top;fontStyle=1;fontSize=18;" parent="1" vertex="1">
+          <mxGeometry width="450" height="800" as="geometry" />
+        </mxCell>
+        <mxCell id="H5Puy0iPVS6YyE1OOhMD-2" value="&amp;lt;= Назад" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=1;fontSize=18;" parent="1" vertex="1">
+          <mxGeometry width="150" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="H5Puy0iPVS6YyE1OOhMD-3" value="Бой" style="rounded=0;whiteSpace=wrap;html=1;fontSize=18;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry y="640" width="150" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="H5Puy0iPVS6YyE1OOhMD-4" value="Золото:" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=1;fontSize=18;" parent="1" vertex="1">
+          <mxGeometry x="150" width="150" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="H5Puy0iPVS6YyE1OOhMD-5" value="Уровень:" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=1;fontSize=18;" parent="1" vertex="1">
+          <mxGeometry x="300" width="150" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="H5Puy0iPVS6YyE1OOhMD-6" value="Квесты" style="rounded=0;whiteSpace=wrap;html=1;fontSize=18;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="150" y="640" width="150" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="H5Puy0iPVS6YyE1OOhMD-7" value="Навыки" style="rounded=0;whiteSpace=wrap;html=1;fontSize=18;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="300" y="640" width="150" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="H5Puy0iPVS6YyE1OOhMD-8" value="Прокачать" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=1;fontSize=18;" parent="1" vertex="1">
+          <mxGeometry y="560" width="450" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="H5Puy0iPVS6YyE1OOhMD-9" value="Навыки" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=1;fontSize=18;labelPosition=center;verticalLabelPosition=middle;align=center;verticalAlign=top;textShadow=0;" parent="1" vertex="1">
+          <mxGeometry y="80" width="450" height="480" as="geometry" />
+        </mxCell>
+        <mxCell id="H5Puy0iPVS6YyE1OOhMD-10" value="Навык" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=1;fontSize=18;" parent="1" vertex="1">
+          <mxGeometry x="112.5" y="160" width="225" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="H5Puy0iPVS6YyE1OOhMD-11" value="" style="triangle;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="370" y="280" width="60" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="H5Puy0iPVS6YyE1OOhMD-12" value="" style="triangle;whiteSpace=wrap;html=1;rotation=180;" parent="1" vertex="1">
+          <mxGeometry x="20" y="280" width="60" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="H5Puy0iPVS6YyE1OOhMD-13" value="Цена" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=1;fontSize=18;" parent="1" vertex="1">
+          <mxGeometry x="112.5" y="400" width="225" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="H5Puy0iPVS6YyE1OOhMD-14" value="Описание навыка" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=1;fontSize=18;" parent="1" vertex="1">
+          <mxGeometry x="112.5" y="240" width="225" height="160" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="NsZV1sEflbuF02y7G71Q" name="КВЕСТЫ">
+    <mxGraphModel dx="2084" dy="1306" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="S05v4mEux8KQfdRXEt6A-1" value="Макет Окна КВЕСТЫ" style="rounded=0;whiteSpace=wrap;html=1;labelPosition=center;verticalLabelPosition=bottom;align=center;verticalAlign=top;fontStyle=1;fontSize=18;" parent="1" vertex="1">
+          <mxGeometry width="450" height="800" as="geometry" />
+        </mxCell>
+        <mxCell id="S05v4mEux8KQfdRXEt6A-2" value="&amp;lt;= Назад" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=1;fontSize=18;" parent="1" vertex="1">
+          <mxGeometry width="150" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="S05v4mEux8KQfdRXEt6A-3" value="Бой" style="rounded=0;whiteSpace=wrap;html=1;fontSize=18;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry y="640" width="150" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="S05v4mEux8KQfdRXEt6A-4" value="Золото:" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=1;fontSize=18;" parent="1" vertex="1">
+          <mxGeometry x="150" width="150" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="S05v4mEux8KQfdRXEt6A-5" value="Уровень:" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=1;fontSize=18;" parent="1" vertex="1">
+          <mxGeometry x="300" width="150" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="S05v4mEux8KQfdRXEt6A-6" value="Квесты" style="rounded=0;whiteSpace=wrap;html=1;fontSize=18;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="150" y="640" width="150" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="S05v4mEux8KQfdRXEt6A-7" value="Навыки" style="rounded=0;whiteSpace=wrap;html=1;fontSize=18;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="300" y="640" width="150" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="S05v4mEux8KQfdRXEt6A-8" value="Прогресс бар" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=1;fontSize=18;" parent="1" vertex="1">
+          <mxGeometry y="560" width="450" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="S05v4mEux8KQfdRXEt6A-9" value="Квесты" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=1;fontSize=18;labelPosition=center;verticalLabelPosition=middle;align=center;verticalAlign=top;textShadow=0;" parent="1" vertex="1">
+          <mxGeometry y="80" width="450" height="480" as="geometry" />
+        </mxCell>
+        <mxCell id="S05v4mEux8KQfdRXEt6A-10" value="Квест" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=1;fontSize=18;" parent="1" vertex="1">
+          <mxGeometry x="112.5" y="160" width="225" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="S05v4mEux8KQfdRXEt6A-11" value="" style="triangle;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="370" y="280" width="60" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="S05v4mEux8KQfdRXEt6A-12" value="" style="triangle;whiteSpace=wrap;html=1;rotation=180;" parent="1" vertex="1">
+          <mxGeometry x="20" y="280" width="60" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="S05v4mEux8KQfdRXEt6A-13" value="Награда" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=1;fontSize=18;" parent="1" vertex="1">
+          <mxGeometry x="112.5" y="400" width="225" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="S05v4mEux8KQfdRXEt6A-14" value="Описание квеста" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=1;fontSize=18;" parent="1" vertex="1">
+          <mxGeometry x="112.5" y="240" width="225" height="160" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
