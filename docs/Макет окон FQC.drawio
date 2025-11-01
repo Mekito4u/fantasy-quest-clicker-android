@@ -1,6 +1,6 @@
 <mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 YaBrowser/25.8.0.0 Safari/537.36" version="28.2.5" pages="4">
   <diagram name="БОЙ" id="FQyJy2-OA30SqmC8g7-e">
-    <mxGraphModel dx="1489" dy="933" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1737" dy="1082" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -22,14 +22,20 @@
         <mxCell id="dx9-EV9b3HRcRzCbt3W6-44" value="Квесты" style="rounded=0;whiteSpace=wrap;html=1;fontSize=18;fontStyle=1" parent="1" vertex="1">
           <mxGeometry x="150" y="640" width="150" height="160" as="geometry" />
         </mxCell>
+        <mxCell id="y6czqP3eG_VE_ENktux4-2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="dx9-EV9b3HRcRzCbt3W6-45" target="dx9-EV9b3HRcRzCbt3W6-50">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="y6czqP3eG_VE_ENktux4-3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="dx9-EV9b3HRcRzCbt3W6-45" target="dx9-EV9b3HRcRzCbt3W6-50">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
         <mxCell id="dx9-EV9b3HRcRzCbt3W6-45" value="Навыки" style="rounded=0;whiteSpace=wrap;html=1;fontSize=18;fontStyle=1" parent="1" vertex="1">
           <mxGeometry x="300" y="640" width="150" height="160" as="geometry" />
         </mxCell>
         <mxCell id="dx9-EV9b3HRcRzCbt3W6-48" value="Имя врага&lt;div&gt;ХП&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=1;fontSize=18;" parent="1" vertex="1">
-          <mxGeometry y="560" width="450" height="80" as="geometry" />
+          <mxGeometry y="570" width="450" height="70" as="geometry" />
         </mxCell>
         <mxCell id="dx9-EV9b3HRcRzCbt3W6-50" value="Локация" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=1;fontSize=18;labelPosition=center;verticalLabelPosition=middle;align=center;verticalAlign=top;textShadow=0;" parent="1" vertex="1">
-          <mxGeometry y="80" width="450" height="480" as="geometry" />
+          <mxGeometry y="80" width="450" height="490" as="geometry" />
         </mxCell>
         <mxCell id="dx9-EV9b3HRcRzCbt3W6-49" value="Враг" style="rounded=0;whiteSpace=wrap;html=1;fontStyle=1;fontSize=18;" parent="1" vertex="1">
           <mxGeometry x="150" y="200" width="150" height="240" as="geometry" />
