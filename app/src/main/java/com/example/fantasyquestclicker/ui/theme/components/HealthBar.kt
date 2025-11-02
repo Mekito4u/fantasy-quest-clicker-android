@@ -1,11 +1,14 @@
 package com.example.fantasyquestclicker.ui.theme.components
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
@@ -30,12 +33,22 @@ fun HealthBar(
 
         Spacer(modifier = Modifier.height(4.dp))
 
-        LinearProgressIndicator(
-            progress = progress,
+        // ОКРУГЛЫЙ PROGRESS BAR
+        Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(16.dp),
-            color = healthColor,
-        )
+                .height(20.dp)
+                .clip(RoundedCornerShape(10.dp))
+                .background(Color(0xFF444444))
+        ) {
+            // Заливка здоровья
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth(progress)
+                    .fillMaxHeight()
+                    .clip(RoundedCornerShape(10.dp))
+                    .background(healthColor)
+            )
+        }
     }
 }
