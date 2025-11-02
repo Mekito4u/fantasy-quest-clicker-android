@@ -1,3 +1,9 @@
+package com.example.fantasyquestclicker.domain.use_cases
+
+import Enemy
+import Player
+
+// Класс для атаки противника
 class AttackEnemyUseCase {
     fun execute(player: Player, enemy: Enemy): AttackResult {
         val damage = player.baseAttack
@@ -15,6 +21,7 @@ class AttackEnemyUseCase {
     }
 }
 
+// Данные результата атаки
 data class AttackResult(
     val damageDealt: Int,
     val isEnemyDefeated: Boolean,

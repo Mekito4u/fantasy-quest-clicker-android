@@ -1,8 +1,7 @@
 package com.example.fantasyquestclicker.ui.theme.screens
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -13,6 +12,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.fantasyquestclicker.domain.utils.NumberFormatter
 import com.example.fantasyquestclicker.ui.theme.components.HealthBar
 import com.example.fantasyquestclicker.ui.theme.viewmodels.BattleViewModel
 
@@ -27,28 +27,32 @@ fun BattleScreen(
     val enemy by viewModel.currentEnemy.collectAsState()
 
     BaseGameScreen(
+        onCenterClick = { viewModel.attackEnemy() },
+
         // ВЕРХНЯЯ ПАНЕЛЬ - 3 блока
         topLeftContent = {
-            TextButton(onClick = onBackClick) {
+            TextButton(onClick = onBackClick,
+            ) {
                 Text(
-                    "← Назад",
+                    "Назад",
                     color = Color.White,
-                    fontSize = 16.sp
+                    fontSize = 22.sp
                 )
             }
         },
         topCenterContent = {
             Text(
-                "Золото: ${player.gold}",
+
+                "Золото: ${NumberFormatter.formatNumber(player.gold)}",
                 color = Color(0xFFFFD700),
-                fontSize = 16.sp
+                fontSize = 22.sp
             )
         },
         topRightContent = {
             Text(
                 "Уровень: ${player.level}",
                 color = Color.White,
-                fontSize = 16.sp
+                fontSize = 22.sp
             )
         },
 
@@ -57,8 +61,7 @@ fun BattleScreen(
             Box(
                 modifier = Modifier
                     .fillMaxWidth(0.5f)
-                    .aspectRatio(225f / 294f)
-                    .clickable { viewModel.attackEnemy() },
+                    .aspectRatio(225f / 294f),
                 contentAlignment = Alignment.Center
             ) {
                 Text("🦇", fontSize = 60.sp, color = Color.White)
@@ -93,13 +96,18 @@ fun BattleScreen(
             Button(
                 onClick = { /* Уже на экране боя */ },
                 modifier = Modifier
-                    .fillMaxHeight(0.8f)
-                    .fillMaxWidth(0.9f)
                     .aspectRatio(1f),
                 shape = RoundedCornerShape(12.dp),
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = Color.DarkGray
-                )
+                    containerColor = Color.DarkGray,
+                    disabledContainerColor = Color(0xFF363636),
+                    disabledContentColor = Color(0xCCCCCCCC)
+                ),
+                elevation = ButtonDefaults.buttonElevation(
+                    defaultElevation = 0.dp,
+                    pressedElevation = 0.dp
+                ),
+                enabled = false,
             ) {
                 Text("Бой", fontSize = 18.sp, fontWeight = FontWeight.Bold)
             }
@@ -108,13 +116,11 @@ fun BattleScreen(
             Button(
                 onClick = onNavigateToQuests,
                 modifier = Modifier
-                    .fillMaxHeight(0.8f)
-                    .fillMaxWidth(0.9f)
                     .aspectRatio(1f),
                 shape = RoundedCornerShape(12.dp),
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Color.DarkGray
-                )
+                ),
             ) {
                 Text("Квесты", fontSize = 18.sp, fontWeight = FontWeight.Bold)
             }
@@ -123,13 +129,11 @@ fun BattleScreen(
             Button(
                 onClick = onNavigateToSkills,
                 modifier = Modifier
-                    .fillMaxHeight(0.8f)
-                    .fillMaxWidth(0.9f)
                     .aspectRatio(1f),
                 shape = RoundedCornerShape(12.dp),
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Color.DarkGray
-                )
+                ),
             ) {
                 Text("Навыки", fontSize = 18.sp, fontWeight = FontWeight.Bold)
             }
