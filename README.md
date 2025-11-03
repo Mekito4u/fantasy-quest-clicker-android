@@ -2,51 +2,96 @@
 
 Мобильное RPG-приложение в жанре кликер, разрабатываемое на Kotlin для Android.
 
-## Текущий статус проекта
+## 🎯 Текущий статус проекта
 
-**Реализовано:**
-- Базовая архитектура приложения (UI Layer - Domain Layer - Data Layer)
-- Прототипы основных экранов:
-    - Экран боя
-    - Экран создания персонажа
-    - Экран прокачки навыков
-    - Экран квестов
-- Система сборки на Gradle с Kotlin DSL
+**✅ Реализовано:**
 
-## Технологический стек
+- Чистая архитектура (UI Layer - Domain Layer - Data Layer)
+- Полностью рабочая боевая система с тап-управлением
+- Система экономики (золото за победу над врагами)
+- Случайная генерация врагов (Гоблин, Орк, Скелет)
+- Сохранение прогресса через DataStore
+- Кастомные UI компоненты (HealthBar, BaseScreen)
+- Форматирование чисел (1K, 1M)
 
-- **Язык программирования:** Kotlin
+**🎮 Игровой процесс:**
+
+- Тап по врагу для атаки
+- Health Bar с цветовой индикацией
+- Смена врагов при победе
+- Начисление золота
+- Сохранение прогресса между сессиями
+
+## 🏗️ Архитектура
+
+### Clean Architecture + MVVM
+
+### Ключевые компоненты:
+
+**🎨 UI Layer:**
+
+- `BattleScreen` - главный экран боя
+- `BattleViewModel` - управление состоянием боя
+- `HealthBar` - кастомный компонент здоровья
+- `BaseScreen` - базовые шаблоны экранов
+
+**🧠 Domain Layer:**
+
+- `AttackEnemyUseCase` - бизнес-логика атаки
+- `Player`, `Enemy` - доменные модели
+- `PlayerRepository` - интерфейс доступа к данным
+
+**💾 Data Layer:**
+
+- `PlayerDataStoreRepository` - реализация с DataStore
+- `DataStore<Preferences>` - локальное хранилище
+
+## 🛠 Технологический стек
+
+- **Язык:** Kotlin + Coroutines + Flow
 - **Минимальная SDK:** Android 8.0 (API 26)
-- **Архитектура:** Многослойная (UI - Domain - Data)
-- **UI Framework:** Jetpack Compose
+- **Архитектура:** Clean Architecture + MVVM
+- **UI:** Jetpack Compose + Material3
+- **Локальная БД:** DataStore (Preferences)
 - **Сборка:** Gradle с Kotlin DSL
 
-## Структура проекта
+## 📊 Структура проекта
+
 ```
-app/
-├── ui/ # Экранные компоненты
-├── domain/ # Игровая логика
-├── data/ # Работа с данными
-└── di/ # Dependency Injection
+FantasyQuestClicker/
+├── 📱 app/ (Android Module)
+│   ├── 📁 src/main/java/com/example/fantasyquestclicker/
+│   │   ├── 🎨 ui/ (Presentation Layer)
+│   │   │   ├── theme/ (Material3 темы)
+│   │   │   ├── screens/ (Экраны)
+│   │   │   │   └── BattleScreen.kt
+│   │   │   ├── viewmodels/ (ViewModels)
+│   │   │   │   └── BattleViewModel.kt
+│   │   │   └── components/ (UI компоненты)
+│   │   │       └── HealthBar.kt
+│   │   ├── 🧠 domain/ (Business Logic Layer)
+│   │   │   ├── models/ (Data классы)
+│   │   │   │   ├── Player.kt
+│   │   │   │   └── Enemy.kt
+│   │   │   ├── use_cases/ (Use Cases)
+│   │   │   │   └── AttackEnemyUseCase.kt
+│   │   │   └── repositories/ (Интерфейсы репозиториев)
+│   │   │       └── PlayerRepository.kt
+│   │   └── 💾 data/ (Data Layer)
+│   │       └── repositories/ (Реализации репозиториев)
+│   │           └── PlayerDataStoreRepository.kt
+│   └── 📁 build.gradle.kts (Зависимости)
+├── 📄 README.md
+└── 📄 build.gradle.kts (Project config)
 ```
 
+## 📈 Дорожная карта
 
-## Установка и запуск
-
-1. Клонировать репозиторий
-2. Открыть проект в Android Studio
-3. Дождаться синхронизации Gradle
-4. Собрать и запустить на эмуляторе или устройстве
-
-## Дорожная карта
-
-- [ ] Реализация базовой игровой механики
-- [ ] Интеграция системы сохранения прогресса
+- [x] Базовая архитектура и боевая система
+- [x] Система сохранения прогресса (DataStore)
+- [ ] Система прокачки навыков
+- [ ] Система квестов и достижений
+- [ ] Юнит-тестирование
 - [ ] Балансировка игровых параметров
-- [ ] Тестирование на различных устройствах
+- [ ] Полировка UI/UX
 
-## Контакты
-
-Разработчик: Епифанов М.О.
-Группа: ИКБО-51-23
-Руководитель: Золотухин С.А.
