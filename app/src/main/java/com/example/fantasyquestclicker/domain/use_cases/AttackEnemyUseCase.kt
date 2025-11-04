@@ -1,29 +1,27 @@
 package com.example.fantasyquestclicker.domain.use_cases
 
-import Enemy
-import Player
+import com.example.fantasyquestclicker.domain.models.Enemy
+import com.example.fantasyquestclicker.domain.models.Player
+import com.example.fantasyquestclicker.domain.models.AttackResult
 
-// Класс для атаки противника
 class AttackEnemyUseCase {
-    fun execute(player: Player, enemy: Enemy): AttackResult {
-        val damage = player.baseAttack
-        enemy.currentHealth -= damage
+    operator fun invoke(player: Player, enemy: Enemy): AttackResult {
+        val damage = player.calculateDamage()
+        val updatedEnemy = enemy.takeDamage(damage)
+        val isEnemyDefeated = updatedEnemy.isDefeated
 
-        val isEnemyDefeated = enemy.currentHealth <= 0
-        var goldReward = 0
-
-        if (isEnemyDefeated) {
-            goldReward = enemy.baseReward
-            player.gold += goldReward
+        val updatedPlayer = if (isEnemyDefeated) {
+            player.copy(gold = player.gold + enemy.baseReward)
+        } else {
+            player
         }
 
-        return AttackResult(damage, isEnemyDefeated, goldReward)
+        return AttackResult(
+            damageDealt = damage,
+            isEnemyDefeated = isEnemyDefeated,
+            goldReward = if (isEnemyDefeated) enemy.baseReward else 0,
+            updatedPlayer = updatedPlayer,
+            updatedEnemy = updatedEnemy
+        )
     }
 }
-
-// Данные результата атаки
-data class AttackResult(
-    val damageDealt: Int,
-    val isEnemyDefeated: Boolean,
-    val goldReward: Int
-)

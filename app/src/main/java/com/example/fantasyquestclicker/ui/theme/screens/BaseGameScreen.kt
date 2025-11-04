@@ -22,9 +22,10 @@ fun BaseGameScreen(
     topCenterContent: @Composable () -> Unit = {},
     topRightContent: @Composable () -> Unit = {},
 
-    // Центральная часть - ОСНОВНОЙ контент + ДОПОЛНИТЕЛЬНЫЙ
+    // Центральная часть - ОСНОВНОЙ
+    centerAdditionalContentTop: @Composable () -> Unit = {},
     centerMainContent: @Composable () -> Unit = {},
-    centerAdditionalContent: @Composable () -> Unit = {},
+    centerAdditionalContentBottom: @Composable () -> Unit = {},
 
     // Нижняя панель - 3 блока
     bottomLeftContent: @Composable () -> Unit = {},
@@ -64,11 +65,24 @@ fun BaseGameScreen(
                         onClick = onCenterClick
                     ))
             {
+<<<<<<< HEAD
+                // ДОПОЛНИТЕЛЬНЫЙ контент - 6.25% центра
+=======
                 // ОСНОВНОЙ контент - 87.5% центра
+>>>>>>> 4a10e87b5862635fd87257a57753d1652998dc1f
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .weight(0.85f),
+                        .weight(0.0625f),
+                    contentAlignment = Alignment.Center
+                ) {
+                    centerAdditionalContentTop()
+                }
+                // ОСНОВНОЙ контент - 81,25% центра
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .weight(0.8125f),
                     contentAlignment = Alignment.Center
                 ) {
                     Box(
@@ -86,10 +100,10 @@ fun BaseGameScreen(
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .weight(0.15f),
+                        .weight(0.125f),
                     contentAlignment = Alignment.Center
                 ) {
-                    centerAdditionalContent()
+                    centerAdditionalContentBottom()
                 }
             }
         },
