@@ -22,7 +22,6 @@ class PlayerProgressRepository(
         private val GOLD_KEY = intPreferencesKey("gold")
         private val BASE_ATTACK_KEY = intPreferencesKey("base_attack")
         private val MAX_TIME_KEY = intPreferencesKey("max_time")
-        private val ARMOR_KEY = intPreferencesKey("armor")
         private val CRITICAL_CHANCE_KEY = intPreferencesKey("critical_chance")
     }
 
@@ -31,17 +30,15 @@ class PlayerProgressRepository(
             preferences[GOLD_KEY] = player.gold
             preferences[BASE_ATTACK_KEY] = player.baseAttack
             preferences[MAX_TIME_KEY] = player.maxTime
-            preferences[ARMOR_KEY] = player.armor
         }
     }
 
     override suspend fun loadPlayerProgress(): Player {
         return Player(
             gold = context.dataStore.data.map { it[GOLD_KEY] ?: 0 }.first(),
-            baseAttack = context.dataStore.data.map { it[BASE_ATTACK_KEY] ?: 10 }.first(),
+            baseAttack = context.dataStore.data.map { it[BASE_ATTACK_KEY] ?: 1 }.first(),
             maxTime = context.dataStore.data.map { it[MAX_TIME_KEY] ?: 60 }.first(),
-            armor = context.dataStore.data.map { it[ARMOR_KEY] ?: 0 }.first(),
-            criticalChance = 0.1
+            criticalChance = 0.0
         )
     }
 
@@ -49,10 +46,9 @@ class PlayerProgressRepository(
         return context.dataStore.data.map { preferences ->
             Player(
                 gold = preferences[GOLD_KEY] ?: 0,
-                baseAttack = preferences[BASE_ATTACK_KEY] ?: 10,
+                baseAttack = preferences[BASE_ATTACK_KEY] ?: 1,
                 maxTime = preferences[MAX_TIME_KEY] ?: 60,
-                armor = preferences[ARMOR_KEY] ?: 0,
-                criticalChance = 0.1
+                criticalChance = 0.0
             )
         }
     }

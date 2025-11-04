@@ -13,12 +13,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
-<<<<<<< HEAD
 import com.example.fantasyquestclicker.di.ViewModelFactory
 import com.example.fantasyquestclicker.domain.utils.NumberFormatter.formatNumber
-=======
-import com.example.fantasyquestclicker.domain.utils.NumberFormatter
->>>>>>> 4a10e87b5862635fd87257a57753d1652998dc1f
 import com.example.fantasyquestclicker.ui.theme.components.HealthBar
 import com.example.fantasyquestclicker.ui.theme.components.PlayerTimer
 import com.example.fantasyquestclicker.ui.theme.viewmodels.BattleViewModel
@@ -51,12 +47,7 @@ fun BattleScreen(
         },
         topCenterContent = {
             Text(
-<<<<<<< HEAD
                 text = "Золото: ${formatNumber(player.gold)}",
-=======
-
-                "Золото: ${NumberFormatter.formatNumber(player.gold)}",
->>>>>>> 4a10e87b5862635fd87257a57753d1652998dc1f
                 color = Color(0xFFFFD700),
                 fontSize = 22.sp
             )
@@ -66,7 +57,6 @@ fun BattleScreen(
                 "Стадия: ${player.currentStage}",
                 color = Color.White,
                 fontSize = 22.sp
-<<<<<<< HEAD
             )
         },
 
@@ -74,8 +64,6 @@ fun BattleScreen(
         centerAdditionalContentTop = {
             PlayerTimer(
                 currentTime = player.currentTime,
-=======
->>>>>>> 4a10e87b5862635fd87257a57753d1652998dc1f
             )
         },
 

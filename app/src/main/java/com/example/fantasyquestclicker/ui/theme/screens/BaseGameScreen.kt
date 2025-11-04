@@ -65,11 +65,7 @@ fun BaseGameScreen(
                         onClick = onCenterClick
                     ))
             {
-<<<<<<< HEAD
                 // ДОПОЛНИТЕЛЬНЫЙ контент - 6.25% центра
-=======
-                // ОСНОВНОЙ контент - 87.5% центра
->>>>>>> 4a10e87b5862635fd87257a57753d1652998dc1f
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
