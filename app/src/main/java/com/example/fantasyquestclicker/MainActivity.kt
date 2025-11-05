@@ -3,22 +3,29 @@ package com.example.fantasyquestclicker
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.runtime.*
 import com.example.fantasyquestclicker.ui.theme.screens.BattleScreen
+import com.example.fantasyquestclicker.ui.theme.screens.SkillsScreen
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContent {
-            BattleScreen(
-                onNavigateToSkills = {
-                },
-                onNavigateToQuests = {
-                },
-                onBackClick = {
-                    finish()
-                }
-            )
+            var currentScreen by remember { mutableStateOf("battle") }
+
+            when (currentScreen) {
+                "battle" -> BattleScreen(
+                    currentScreen = currentScreen,
+                    onScreenChange = { newScreen -> currentScreen = newScreen },
+                    onBackClick = { finish() }
+                )
+                "skills" -> SkillsScreen(
+                    currentScreen = currentScreen,
+                    onScreenChange = { newScreen -> currentScreen = newScreen },
+                    onBackClick = { currentScreen = "battle" }
+                )
+            }
         }
     }
 }

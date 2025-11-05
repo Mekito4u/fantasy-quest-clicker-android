@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.floatPreferencesKey
 import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import com.example.fantasyquestclicker.domain.models.Player
@@ -22,7 +23,8 @@ class PlayerProgressRepository(
         private val GOLD_KEY = intPreferencesKey("gold")
         private val BASE_ATTACK_KEY = intPreferencesKey("base_attack")
         private val MAX_TIME_KEY = intPreferencesKey("max_time")
-        private val CRITICAL_CHANCE_KEY = intPreferencesKey("critical_chance")
+        private val CRITICAL_CHANCE_KEY = floatPreferencesKey("critical_chance")
+        private val CURRENT_STAGE_KEY = intPreferencesKey("current_stage")
     }
 
     override suspend fun savePlayerProgress(player: Player) {
@@ -30,6 +32,8 @@ class PlayerProgressRepository(
             preferences[GOLD_KEY] = player.gold
             preferences[BASE_ATTACK_KEY] = player.baseAttack
             preferences[MAX_TIME_KEY] = player.maxTime
+            preferences[CRITICAL_CHANCE_KEY] = player.criticalChance.toFloat()
+            preferences[CURRENT_STAGE_KEY] = player.currentStage
         }
     }
 
@@ -37,8 +41,11 @@ class PlayerProgressRepository(
         return Player(
             gold = context.dataStore.data.map { it[GOLD_KEY] ?: 0 }.first(),
             baseAttack = context.dataStore.data.map { it[BASE_ATTACK_KEY] ?: 1 }.first(),
-            maxTime = context.dataStore.data.map { it[MAX_TIME_KEY] ?: 60 }.first(),
-            criticalChance = 0.0
+            maxTime = context.dataStore.data.map { it[MAX_TIME_KEY] ?: 10 }.first(),
+            criticalChance = context.dataStore.data.map {
+                it[CRITICAL_CHANCE_KEY]?.toDouble() ?: 0.0
+            }.first(),
+            currentStage = context.dataStore.data.map { it[CURRENT_STAGE_KEY] ?: 1 }.first()
         )
     }
 
@@ -47,8 +54,9 @@ class PlayerProgressRepository(
             Player(
                 gold = preferences[GOLD_KEY] ?: 0,
                 baseAttack = preferences[BASE_ATTACK_KEY] ?: 1,
-                maxTime = preferences[MAX_TIME_KEY] ?: 60,
-                criticalChance = 0.0
+                maxTime = preferences[MAX_TIME_KEY] ?: 10,
+                currentStage = preferences[CURRENT_STAGE_KEY] ?: 1,
+                criticalChance = preferences[CRITICAL_CHANCE_KEY]?.toDouble() ?: 0.0
             )
         }
     }

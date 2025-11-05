@@ -10,7 +10,6 @@ class StageProgressUseCase {
             player.copy(
                 currentStage = player.currentStage + 1,
                 enemiesDefeated = 0,
-                currentTime = player.maxTime
             )
         } else {
             player.copy(enemiesDefeated = newEnemiesDefeated)

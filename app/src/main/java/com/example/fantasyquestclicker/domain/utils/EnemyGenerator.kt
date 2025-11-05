@@ -4,32 +4,34 @@ import com.example.fantasyquestclicker.domain.models.Enemy
 import kotlin.random.Random
 
 object EnemyGenerator {
-    private const val BASE_HP = 30
-    private const val BASE_REWARD = 10
-
-    private val enemyNames = listOf("Скелет", "Гоблин", "Орк", "Зомби", "Волк")
-    private val enemyImages = listOf("skeleton", "goblin", "orc", "zombie", "wolf")
-
     fun generateEnemy(stage: Int, isBoss: Boolean = false): Enemy {
-        val stageMultiplier = 1.0 + (stage - 1) * 0.3
-        val bossMultiplier = if (isBoss) 2.0 else 1.0
+        val health = 10 + (stage * 20)
+        val reward = 10 + (stage * 5)
 
-        val health = (BASE_HP * random(0.8, 1.2) * stageMultiplier * bossMultiplier).toInt()
-        val reward = (BASE_REWARD * random(0.9, 1.1) * stageMultiplier * bossMultiplier).toInt()
+        val enemyTypes = listOf(
+            EnemyType("Скелет", "💀"),
+            EnemyType("Гоблин", "\uD83E\uDDCC"),
+            EnemyType("Орк", "👹"),
+            EnemyType("Зомби", "🧟"),
+            EnemyType("Волк", "🐺"),
+            EnemyType("Дракон", "\uD83D\uDC32"),
+        )
 
-        val nameIndex = Random.nextInt(enemyNames.size)
-        val name = if (isBoss) "Босс ${enemyNames[nameIndex]}" else enemyNames[nameIndex]
+        val selectedType = enemyTypes.random()
+        val name = if (isBoss) "Босс ${selectedType.name}" else selectedType.name
 
         return Enemy(
             id = Random.nextInt(1000, 9999),
             name = name,
-            currentHealth = health,
-            maxHealth = health,
-            baseReward = reward,
-            imageRes = enemyImages[nameIndex],
+            currentHealth = if (isBoss) health * 3 else health,
+            maxHealth = if (isBoss) health * 3 else health,
+            baseReward = if (isBoss) reward * 3 else reward,
+            imageRes = selectedType.emoji
         )
     }
 
-    private fun random(min: Double, max: Double): Double =
-        min + (max - min) * Math.random()
+    private data class EnemyType(
+        val name: String,
+        val emoji: String
+    )
 }

@@ -1,11 +1,11 @@
 package com.example.fantasyquestclicker.ui.theme.viewmodels
 
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.fantasyquestclicker.domain.models.*
 import com.example.fantasyquestclicker.domain.repositories.GameRepository
 import com.example.fantasyquestclicker.domain.use_cases.*
 import com.example.fantasyquestclicker.domain.utils.EnemyGenerator
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -14,85 +14,43 @@ import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 
 class BattleViewModel(
-    private val gameRepository: GameRepository
-) : ViewModel() {
-
-    private val _playerState = MutableStateFlow(Player())
-    val player: StateFlow<Player> = _playerState.asStateFlow()
-
+    gameRepository: GameRepository
+) : BaseGameViewModel(gameRepository) {
+    private var stageTimerJob: Job? = null
     private val _currentEnemy = MutableStateFlow(EnemyGenerator.generateEnemy(stage = 1))
     val currentEnemy: StateFlow<Enemy> = _currentEnemy.asStateFlow()
 
-    private val _gameState = MutableStateFlow(GameState.PLAYING)
-    val gameState: StateFlow<GameState> = _gameState.asStateFlow()
-
+    override fun onPlayerLoaded(player: Player) {
+        spawnNewEnemy()
+        startStageTimer()
+    }
 
     // Use Cases
     private val attackEnemyUseCase = AttackEnemyUseCase()
     private val stageProgressUseCase = StageProgressUseCase()
-    private val handleDefeatUseCase = HandleDefeatUseCase()
-    private val decreaseStageTimeUseCase = DecreaseStageTimeUseCase()
-    private val addTimeRewardUseCase = AddTimeRewardUseCase()
-
-    init {
-        loadPlayerProgress()
-        startStageTimer()
-    }
-
-    private fun loadPlayerProgress() {
-        viewModelScope.launch {
-            val savedPlayer = gameRepository.loadPlayerProgress()
-            _playerState.value = savedPlayer
-            spawnNewEnemy()
-        }
-    }
-
-    private fun savePlayerProgress() {
-        viewModelScope.launch {
-            gameRepository.savePlayerProgress(_playerState.value)
-        }
-    }
 
     private fun startStageTimer() {
-        viewModelScope.launch {
-            while (isActive && _gameState.value == GameState.PLAYING) {
-                decreaseStageTime()
+        stageTimerJob?.cancel()
+        stageTimerJob = viewModelScope.launch {
+            while (isActive) {
                 delay(1000)
+                decreaseStageTime()
             }
         }
     }
 
     private fun decreaseStageTime() {
-        val updatedPlayer = decreaseStageTimeUseCase(_playerState.value)
-        _playerState.value = updatedPlayer
+        val currentPlayer = _playerState.value
+        if (currentPlayer.currentTime > 0) {
+            val updatedPlayer = currentPlayer.copy(
+                currentTime = currentPlayer.currentTime - 1
+            )
+            _playerState.value = updatedPlayer
 
-        if (updatedPlayer.isDefeated) {
-            handlePlayerDefeat()
+            if (updatedPlayer.isDefeated) {
+                handlePlayerDefeat()
+            }
         }
-    }
-
-    fun attackEnemy() {
-        val result = attackEnemyUseCase(_playerState.value, _currentEnemy.value)
-
-        _playerState.value = result.updatedPlayer
-        _currentEnemy.value = result.updatedEnemy
-
-        if (result.isEnemyDefeated) {
-            handleEnemyDefeat(result)
-        }
-
-        savePlayerProgress()
-    }
-
-    private fun handleEnemyDefeat(result: AttackResult) {
-        val playerAfterProgress = stageProgressUseCase(_playerState.value)
-        val isBoss = playerAfterProgress.isBossFight
-
-        val playerWithTimeReward = addTimeRewardUseCase(playerAfterProgress, isBoss)
-
-        _playerState.value = playerWithTimeReward
-        savePlayerProgress()
-        spawnNewEnemy()
     }
 
     private fun spawnNewEnemy() {
@@ -107,19 +65,31 @@ class BattleViewModel(
         _currentEnemy.value = newEnemy
     }
 
+    fun attackEnemy() {
+        val result = attackEnemyUseCase(_playerState.value, _currentEnemy.value)
+
+        _playerState.value = result.updatedPlayer
+        _currentEnemy.value = result.updatedEnemy
+
+        if (result.isEnemyDefeated) {
+            handleEnemyDefeat()
+        }
+    }
+
+    private fun handleEnemyDefeat() {
+        val playerAfterProgress = stageProgressUseCase(_playerState.value)
+        _playerState.value = playerAfterProgress
+
+        savePlayerProgress()
+        spawnNewEnemy()
+    }
 
     private fun handlePlayerDefeat() {
-        _gameState.value = GameState.DEFEAT
-
-        val resetPlayer = handleDefeatUseCase(_playerState.value)
+        val resetPlayer = _playerState.value.copy(
+            enemiesDefeated = 0,
+            currentTime = _playerState.value.maxTime
+        )
         _playerState.value = resetPlayer
-        savePlayerProgress()
-
-        viewModelScope.launch {
-            kotlinx.coroutines.delay(2000)
-            _gameState.value = GameState.PLAYING
-            startStageTimer()
-            spawnNewEnemy()
-        }
+        spawnNewEnemy()
     }
 }
