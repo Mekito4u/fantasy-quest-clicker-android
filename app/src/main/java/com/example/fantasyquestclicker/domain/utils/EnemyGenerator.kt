@@ -1,6 +1,7 @@
 package com.example.fantasyquestclicker.domain.utils
 
 import com.example.fantasyquestclicker.domain.models.Enemy
+import com.example.fantasyquestclicker.domain.utils.EnemyTypes.types
 import kotlin.random.Random
 
 object EnemyGenerator {
@@ -8,16 +9,7 @@ object EnemyGenerator {
         val health = 10 + (stage * 20)
         val reward = 10 + (stage * 5)
 
-        val enemyTypes = listOf(
-            EnemyType("Скелет", "💀"),
-            EnemyType("Гоблин", "\uD83E\uDDCC"),
-            EnemyType("Орк", "👹"),
-            EnemyType("Зомби", "🧟"),
-            EnemyType("Волк", "🐺"),
-            EnemyType("Дракон", "\uD83D\uDC32"),
-        )
-
-        val selectedType = enemyTypes.random()
+        val selectedType = types.random()
         val name = if (isBoss) "Босс ${selectedType.name}" else selectedType.name
 
         return Enemy(
@@ -29,9 +21,4 @@ object EnemyGenerator {
             imageRes = selectedType.emoji
         )
     }
-
-    private data class EnemyType(
-        val name: String,
-        val emoji: String
-    )
 }

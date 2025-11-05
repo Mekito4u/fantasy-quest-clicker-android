@@ -8,7 +8,6 @@ data class Enemy(
     val baseReward: Int,
     val imageRes: String,
 ) {
-    val healthPercentage: Float get() = currentHealth.toFloat() / maxHealth.toFloat()
     val isDefeated: Boolean get() = currentHealth <= 0
 
     fun takeDamage(damage: Int): Enemy = copy(

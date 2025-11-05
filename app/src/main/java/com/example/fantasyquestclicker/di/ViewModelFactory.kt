@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.fantasyquestclicker.data.repositories.PlayerProgressRepository
 import com.example.fantasyquestclicker.ui.theme.viewmodels.BattleViewModel
+import com.example.fantasyquestclicker.ui.theme.viewmodels.QuestsViewModel
 import com.example.fantasyquestclicker.ui.theme.viewmodels.SkillsViewModel
 
 @Suppress("UNCHECKED_CAST")
@@ -18,6 +19,9 @@ class ViewModelFactory(private val context: Context) : ViewModelProvider.Factory
             }
             modelClass.isAssignableFrom(SkillsViewModel::class.java) -> {
                 SkillsViewModel(repository) as T
+            }
+            modelClass.isAssignableFrom(QuestsViewModel::class.java) -> {
+                QuestsViewModel(repository) as T
             }
             else -> throw IllegalArgumentException("Unknown ViewModel class")
         }

@@ -1,7 +1,6 @@
 package com.example.fantasyquestclicker.ui.theme.screens
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -14,39 +13,50 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.fantasyquestclicker.di.ViewModelFactory
-import com.example.fantasyquestclicker.domain.models.SkillType
-import com.example.fantasyquestclicker.domain.models.getCurrentSkillValue
-import com.example.fantasyquestclicker.domain.utils.NumberFormatter.formatNumber
-import com.example.fantasyquestclicker.ui.theme.viewmodels.SkillsViewModel
+import com.example.fantasyquestclicker.domain.models.Quest
+import com.example.fantasyquestclicker.domain.models.QuestType
+import com.example.fantasyquestclicker.domain.utils.QuestGenerator
+import com.example.fantasyquestclicker.domain.utils.QuestGenerator.getQuest
+import com.example.fantasyquestclicker.domain.utils.QuestGenerator.getQuestProgress
+import com.example.fantasyquestclicker.ui.theme.components.QuestBar
+import com.example.fantasyquestclicker.ui.theme.viewmodels.QuestsViewModel
 
 @Composable
-fun SkillsScreen(
-    currentScreen: String = "skills",
+fun QuestsScreen(
+    currentScreen: String = "quests",
     onScreenChange: (String) -> Unit = { _ -> },
     onBackClick: () -> Unit = {}
 ) {
-    val viewModel: SkillsViewModel = viewModel(factory = ViewModelFactory(LocalContext.current))
+    val viewModel: QuestsViewModel = viewModel(factory = ViewModelFactory(LocalContext.current))
     val player by viewModel.player.collectAsState()
-    var selectedSkill by remember { mutableStateOf(SkillType.ATTACK) }
+    val quests = remember { mutableStateOf(emptyList<Quest>()) }
+
 
     LaunchedEffect(Unit) {
         viewModel.loadPlayerProgress()
+        quests.value = QuestGenerator.getQuests(player)
     }
+
+    var selectedQuest by remember { mutableStateOf(QuestType.KILL_COUNT) }
 
     // ФУНКЦИИ ДЛЯ СТРЕЛОК
     val onLeftArrowClick = {
-        selectedSkill = when (selectedSkill) {
-            SkillType.ATTACK -> SkillType.CRITICAL
-            SkillType.TIME -> SkillType.ATTACK
-            SkillType.CRITICAL -> SkillType.TIME
+        selectedQuest = when (selectedQuest) {
+            QuestType.KILL_COUNT -> QuestType.UPGRADE_SKILLS
+            QuestType.STAGE_PROGRESS -> QuestType.KILL_COUNT
+            QuestType.GOLD_EARN -> QuestType.STAGE_PROGRESS
+            QuestType.TOTAL_KILLS -> QuestType.GOLD_EARN
+            QuestType.UPGRADE_SKILLS -> QuestType.TOTAL_KILLS
         }
     }
 
     val onRightArrowClick = {
-        selectedSkill = when (selectedSkill) {
-            SkillType.ATTACK -> SkillType.TIME
-            SkillType.TIME -> SkillType.CRITICAL
-            SkillType.CRITICAL -> SkillType.ATTACK
+        selectedQuest = when (selectedQuest) {
+            QuestType.KILL_COUNT -> QuestType.STAGE_PROGRESS
+            QuestType.STAGE_PROGRESS -> QuestType.GOLD_EARN
+            QuestType.GOLD_EARN -> QuestType.TOTAL_KILLS
+            QuestType.TOTAL_KILLS -> QuestType.UPGRADE_SKILLS
+            QuestType.UPGRADE_SKILLS -> QuestType.KILL_COUNT
         }
     }
 
@@ -62,7 +72,7 @@ fun SkillsScreen(
         // ЦЕНТРАЛЬНАЯ ЧАСТЬ - ЗАГОЛОВОК
         centerAdditionalContentTop = {
             Text(
-                "НАВЫКИ",
+                "КВЕСТЫ",
                 color = Color.White,
                 fontSize = 24.sp,
                 fontWeight = FontWeight.Bold
@@ -76,10 +86,9 @@ fun SkillsScreen(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.SpaceEvenly
             ) {
-                Spacer(modifier = Modifier.fillMaxHeight(0.02f))
-                // НАЗВАНИЕ НАВЫКА
+                // НАЗВАНИЕ КВЕСТА
                 Text(
-                    selectedSkill.displayName,
+                    selectedQuest.displayName,
                     color = Color.White,
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Bold,
@@ -87,7 +96,12 @@ fun SkillsScreen(
                 Spacer(modifier = Modifier.fillMaxHeight(0.25f))
                 // ОПИСАНИЕ
                 Text(
-                    selectedSkill.description,
+                    if(selectedQuest == QuestType.KILL_COUNT) {
+                        ("${selectedQuest.description}\n${QuestGenerator.getQuest(QuestType.KILL_COUNT)?.targetName}")
+                    }
+                    else{
+                        selectedQuest.description
+                    },
                     color = Color.Gray,
                     fontSize = 19.sp,
                     textAlign = TextAlign.Center,
@@ -95,16 +109,9 @@ fun SkillsScreen(
                         .fillMaxWidth(0.8f)
                 )
                 Spacer(modifier = Modifier.fillMaxHeight(0.2f))
-                // ТЕКУЩЕЕ ЗНАЧЕНИЕ
+                // Награда
                 Text(
-                    "Текущее: ${getCurrentSkillValue(player, selectedSkill)}",
-                    color = Color(0xFF4FC3F7),
-                    fontSize = 20.sp,
-                )
-
-                // ЦЕНА ПРОКАЧКИ
-                Text(
-                    "Цена: ${formatNumber(selectedSkill.getUpgradeCost(player))} золота",
+                    "Награда: ${getQuest(selectedQuest).reward}",
                     color = Color(0xFFFFA726),
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Bold
@@ -113,27 +120,25 @@ fun SkillsScreen(
             }
         },
 
-        // КНОПКА ПРОКАЧКИ
+        // QUEST BAR
         centerAdditionalContentBottom = {
-            Button(
-                onClick = { viewModel.upgradeSkill(selectedSkill) },
-                modifier = Modifier
-                    .fillMaxWidth(0.8f)
-                    .height(70.dp),
-                shape = RoundedCornerShape(12.dp),
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = if (player.gold >= selectedSkill.getUpgradeCost(player)) {
-                        Color(0xFF4CAF50)
-                    } else {
-                        Color(0xFF666666)
-                    }
-                ),
-                enabled = player.gold >= selectedSkill.getUpgradeCost(player)
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
             ) {
                 Text(
-                    "ПРОКАЧАТЬ",
+                    "",
+                    color = Color.White,
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Bold
+                )
+                Spacer(modifier = Modifier.height(8.dp))
+                QuestBar(
+                    targetValue = getQuest(selectedQuest).targetValue,
+                    completedCount = getQuestProgress(player, selectedQuest),
+                    modifier = Modifier
+                        .fillMaxWidth(0.9f)
+                        .fillMaxHeight(0.8f)
                 )
             }
         }

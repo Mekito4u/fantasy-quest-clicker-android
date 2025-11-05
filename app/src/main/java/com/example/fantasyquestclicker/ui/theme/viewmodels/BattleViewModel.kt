@@ -5,6 +5,7 @@ import com.example.fantasyquestclicker.domain.models.*
 import com.example.fantasyquestclicker.domain.repositories.GameRepository
 import com.example.fantasyquestclicker.domain.use_cases.*
 import com.example.fantasyquestclicker.domain.utils.EnemyGenerator
+import com.example.fantasyquestclicker.domain.utils.QuestGenerator
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -67,13 +68,31 @@ class BattleViewModel(
 
     fun attackEnemy() {
         val result = attackEnemyUseCase(_playerState.value, _currentEnemy.value)
+        val currentEnemy = _currentEnemy.value
 
-        _playerState.value = result.updatedPlayer
+        val updatedPlayer = if (result.isEnemyDefeated) {
+            val isKillQuestEnemy = QuestGenerator.getQuest(QuestType.KILL_COUNT)?.targetName == currentEnemy.name
+
+            result.updatedPlayer.copy(
+                totalKills = result.updatedPlayer.totalKills + 1,
+                totalKillsEnemy = if (isKillQuestEnemy) {
+                    result.updatedPlayer.totalKillsEnemy + 1
+                } else {
+                    result.updatedPlayer.totalKillsEnemy
+                }
+            )
+        } else {
+            result.updatedPlayer
+        }
+
+        _playerState.value = updatedPlayer
         _currentEnemy.value = result.updatedEnemy
 
         if (result.isEnemyDefeated) {
             handleEnemyDefeat()
         }
+
+        savePlayerProgress()
     }
 
     private fun handleEnemyDefeat() {

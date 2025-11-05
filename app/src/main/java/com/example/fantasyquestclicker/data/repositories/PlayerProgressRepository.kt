@@ -40,7 +40,7 @@ class PlayerProgressRepository(
     override suspend fun loadPlayerProgress(): Player {
         return Player(
             gold = context.dataStore.data.map { it[GOLD_KEY] ?: 0 }.first(),
-            baseAttack = context.dataStore.data.map { it[BASE_ATTACK_KEY] ?: 1 }.first(),
+            baseAttack = context.dataStore.data.map { it[BASE_ATTACK_KEY] ?: 5 }.first(),
             maxTime = context.dataStore.data.map { it[MAX_TIME_KEY] ?: 10 }.first(),
             criticalChance = context.dataStore.data.map {
                 it[CRITICAL_CHANCE_KEY]?.toDouble() ?: 0.0
@@ -53,7 +53,7 @@ class PlayerProgressRepository(
         return context.dataStore.data.map { preferences ->
             Player(
                 gold = preferences[GOLD_KEY] ?: 0,
-                baseAttack = preferences[BASE_ATTACK_KEY] ?: 1,
+                baseAttack = preferences[BASE_ATTACK_KEY] ?: 5,
                 maxTime = preferences[MAX_TIME_KEY] ?: 10,
                 currentStage = preferences[CURRENT_STAGE_KEY] ?: 1,
                 criticalChance = preferences[CRITICAL_CHANCE_KEY]?.toDouble() ?: 0.0

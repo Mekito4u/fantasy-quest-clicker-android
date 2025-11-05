@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.*
 import com.example.fantasyquestclicker.ui.theme.screens.BattleScreen
+import com.example.fantasyquestclicker.ui.theme.screens.QuestsScreen
 import com.example.fantasyquestclicker.ui.theme.screens.SkillsScreen
 
 class MainActivity : ComponentActivity() {
@@ -24,6 +25,11 @@ class MainActivity : ComponentActivity() {
                     currentScreen = currentScreen,
                     onScreenChange = { newScreen -> currentScreen = newScreen },
                     onBackClick = { currentScreen = "battle" }
+                )
+                "quests" -> QuestsScreen(
+                    currentScreen = currentScreen,
+                    onScreenChange = { newScreen -> currentScreen = newScreen },
+                    onBackClick = { currentScreen = "quests" }
                 )
             }
         }
