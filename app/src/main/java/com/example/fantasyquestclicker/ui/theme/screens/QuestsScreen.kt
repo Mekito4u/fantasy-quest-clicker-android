@@ -21,6 +21,7 @@ import com.example.fantasyquestclicker.domain.utils.QuestGenerator.getQuestProgr
 import com.example.fantasyquestclicker.ui.theme.components.QuestBar
 import com.example.fantasyquestclicker.ui.theme.viewmodels.QuestsViewModel
 
+// Экран Квестов
 @Composable
 fun QuestsScreen(
     currentScreen: String = "quests",
@@ -39,7 +40,7 @@ fun QuestsScreen(
     val currentQuest = getQuest(selectedQuest)
     val progress = getQuestProgress(player, selectedQuest)
 
-    // ФУНКЦИИ ДЛЯ СТРЕЛОК
+    // ФУНКЦИИ ДЛЯ СТРЕЛКИ ВЛЕВО
     val onLeftArrowClick = {
         selectedQuest = when (selectedQuest) {
             QuestType.KILL_COUNT -> QuestType.UPGRADE_SKILLS
@@ -50,6 +51,7 @@ fun QuestsScreen(
         }
     }
 
+    // ФУНКЦИИ ДЛЯ СТРЕЛКИ ВПРАВО
     val onRightArrowClick = {
         selectedQuest = when (selectedQuest) {
             QuestType.KILL_COUNT -> QuestType.STAGE_PROGRESS

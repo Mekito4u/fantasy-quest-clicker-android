@@ -19,6 +19,7 @@ import com.example.fantasyquestclicker.domain.models.getCurrentSkillValue
 import com.example.fantasyquestclicker.domain.utils.NumberFormatter.formatNumber
 import com.example.fantasyquestclicker.ui.theme.viewmodels.SkillsViewModel
 
+// СТРАНИЦА НАВЫКОВ
 @Composable
 fun SkillsScreen(
     currentScreen: String = "skills",
@@ -32,7 +33,7 @@ fun SkillsScreen(
         viewModel.loadPlayerProgress()
     }
 
-    // ФУНКЦИИ ДЛЯ СТРЕЛОК
+    // ФУНКЦИИ ДЛЯ СТРЕЛКИ ВЛЕВО
     val onLeftArrowClick = {
         selectedSkill = when (selectedSkill) {
             SkillType.ATTACK -> SkillType.CRITICAL
@@ -41,6 +42,7 @@ fun SkillsScreen(
         }
     }
 
+    // ФУНКЦИИ ДЛЯ СТРЕЛКИ ВПРАВО
     val onRightArrowClick = {
         selectedSkill = when (selectedSkill) {
             SkillType.ATTACK -> SkillType.TIME

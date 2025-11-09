@@ -3,10 +3,12 @@ package com.example.fantasyquestclicker.ui.theme.viewmodels
 import com.example.fantasyquestclicker.domain.models.SkillType
 import com.example.fantasyquestclicker.domain.repositories.GameRepository
 
+// ViewModel для управления навыками
 class SkillsViewModel(
     gameRepository: GameRepository
 ) : BaseGameViewModel(gameRepository) {
 
+    // Обновление навыка
     fun upgradeSkill(skillType: SkillType) {
         val currentPlayer = _playerState.value
         val cost = skillType.getUpgradeCost(currentPlayer)

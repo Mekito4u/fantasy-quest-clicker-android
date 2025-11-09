@@ -17,6 +17,7 @@ import com.example.fantasyquestclicker.ui.theme.components.HealthBar
 import com.example.fantasyquestclicker.ui.theme.components.PlayerTimer
 import com.example.fantasyquestclicker.ui.theme.viewmodels.BattleViewModel
 
+// СТРАНИЦА БОЯ
 @Composable
 fun BattleScreen(
     currentScreen: String = "battle",

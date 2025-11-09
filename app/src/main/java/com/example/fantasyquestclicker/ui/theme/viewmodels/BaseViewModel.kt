@@ -9,12 +9,14 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
+// Базовый класс для всех ViewModel в игре
 abstract class BaseGameViewModel(
     protected val gameRepository: GameRepository
 ) : ViewModel() {
     protected val _playerState = MutableStateFlow(Player())
     val player: StateFlow<Player> = _playerState.asStateFlow()
 
+    // Загрузка сохраненного прогресса игрока
     fun loadPlayerProgress() {
         viewModelScope.launch {
             val savedPlayer = gameRepository.loadPlayerProgress()
@@ -23,12 +25,14 @@ abstract class BaseGameViewModel(
         }
     }
 
+    // Сохранение прогресса игрока
     fun savePlayerProgress() {
         viewModelScope.launch {
             gameRepository.savePlayerProgress(_playerState.value)
         }
     }
 
+    // Метод для обработки загруженного игрока
     protected open fun onPlayerLoaded(player: Player) {
     }
 }

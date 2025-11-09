@@ -6,6 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.sp
 
+// ПОЛОСА ВРЕМЕНИ
 @Composable
 fun PlayerTimer(
     currentTime: Int,
@@ -17,6 +18,7 @@ fun PlayerTimer(
     )
 }
 
+// ФОРМАТИРОВАНИЕ ВРЕМЕНИ
 @SuppressLint("DefaultLocale")
 private fun formatTime(seconds: Int): String {
     val minutes = seconds / 60

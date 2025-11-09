@@ -7,6 +7,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 
+// Базовый экран
 @Composable
 fun BaseScreen(
     topContent: @Composable () -> Unit = {},

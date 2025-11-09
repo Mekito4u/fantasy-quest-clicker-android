@@ -57,6 +57,7 @@ object QuestGenerator {
             ""
         }
 
+        // Возвращает сгенерированный квест
         return Quest(
             targetName = targetName,
             type = questType,

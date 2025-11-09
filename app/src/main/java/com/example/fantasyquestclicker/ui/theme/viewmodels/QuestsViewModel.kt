@@ -5,9 +5,11 @@ import com.example.fantasyquestclicker.domain.models.QuestType
 import com.example.fantasyquestclicker.domain.repositories.GameRepository
 import com.example.fantasyquestclicker.domain.utils.QuestGenerator
 
+// ViewModel для экрана квестов
 class QuestsViewModel(
     gameRepository: GameRepository
 ) : BaseGameViewModel(gameRepository) {
+    // Забрать награду за квест
     fun claimReward(quest: Quest) {
         val updatedPlayer = if (quest.type == QuestType.KILL_COUNT) {
             _playerState.value.copy(

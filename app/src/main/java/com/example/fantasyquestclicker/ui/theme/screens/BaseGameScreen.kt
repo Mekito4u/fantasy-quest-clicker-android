@@ -24,6 +24,7 @@ import com.example.fantasyquestclicker.domain.models.Player
 import com.example.fantasyquestclicker.domain.utils.NumberFormatter.formatNumber
 import com.example.fantasyquestclicker.domain.utils.getBackgroundForStage
 
+// Основной экран игры
 @Composable
 fun BaseGameScreen(
     player: Player,
@@ -48,6 +49,7 @@ fun BaseGameScreen(
 
     BaseScreen(
         backgroundColor = backgroundColor,
+        // ВЕРХНИЙ КОНТЕНТ
         topContent = {
             // ВЕРХНЯЯ ПАНЕЛЬ
             Row(
@@ -89,6 +91,7 @@ fun BaseGameScreen(
                 )
             }
         },
+        // ЦЕНТРАЛЬНЫЙ КОНТЕНТ
         centerContent = {
             // ЦЕНТРАЛЬНЫЙ КОНТЕНТ
             Image(
@@ -186,6 +189,7 @@ fun BaseGameScreen(
                 }
             }
         },
+        // НИЖНИЙ КОНТЕНТ
         bottomContent = {
             // НИЖНИЕ КНОПКИ
             Row(
@@ -263,6 +267,7 @@ fun BaseGameScreen(
     )
 }
 
+// ENUM ДЛЯ ТРЕУГОЛЬНИКА
 enum class TriangleDirection {
     LEFT, RIGHT
 }

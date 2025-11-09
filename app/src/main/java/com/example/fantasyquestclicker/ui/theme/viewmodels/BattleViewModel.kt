@@ -14,6 +14,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 
+// ViewModel для боя
 class BattleViewModel(
     gameRepository: GameRepository
 ) : BaseGameViewModel(gameRepository) {
@@ -21,6 +22,7 @@ class BattleViewModel(
     private val _currentEnemy = MutableStateFlow(EnemyGenerator.generateEnemy(stage = 1))
     val currentEnemy: StateFlow<Enemy> = _currentEnemy.asStateFlow()
 
+    // Загрузка игрока
     override fun onPlayerLoaded(player: Player) {
         spawnNewEnemy()
         startStageTimer()
@@ -30,6 +32,7 @@ class BattleViewModel(
     private val attackEnemyUseCase = AttackEnemyUseCase()
     private val stageProgressUseCase = StageProgressUseCase()
 
+    // Таймер для стадии
     private fun startStageTimer() {
         stageTimerJob?.cancel()
         stageTimerJob = viewModelScope.launch {
@@ -40,6 +43,7 @@ class BattleViewModel(
         }
     }
 
+    // Уменьшение времени на стадии
     private fun decreaseStageTime() {
         val currentPlayer = _playerState.value
         if (currentPlayer.currentTime > 0) {
@@ -54,6 +58,7 @@ class BattleViewModel(
         }
     }
 
+    // Спавн нового врага
     private fun spawnNewEnemy() {
         val currentPlayer = _playerState.value
         val isBoss = currentPlayer.isBossFight
@@ -66,6 +71,7 @@ class BattleViewModel(
         _currentEnemy.value = newEnemy
     }
 
+    // Атака врага
     fun attackEnemy() {
         val result = attackEnemyUseCase(_playerState.value, _currentEnemy.value)
         val currentEnemy = _currentEnemy.value
@@ -95,6 +101,7 @@ class BattleViewModel(
         savePlayerProgress()
     }
 
+    // Обработка победы врага
     private fun handleEnemyDefeat() {
         val playerAfterProgress = stageProgressUseCase(_playerState.value)
         _playerState.value = playerAfterProgress
@@ -103,6 +110,7 @@ class BattleViewModel(
         spawnNewEnemy()
     }
 
+    // Обработка поражения игрока
     private fun handlePlayerDefeat() {
         val resetPlayer = _playerState.value.copy(
             enemiesDefeated = 0,
