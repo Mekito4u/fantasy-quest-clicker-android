@@ -5,6 +5,7 @@ import com.example.fantasyquestclicker.domain.utils.EnemyTypes.types
 import kotlin.math.pow
 import kotlin.random.Random
 
+// Класс для генерации врагов
 object EnemyGenerator {
     fun generateEnemy(stage: Int, isBoss: Boolean = false): Enemy {
         val health = (10 * stage.toDouble().pow(1.8)).toInt()

@@ -4,6 +4,7 @@ import com.example.fantasyquestclicker.domain.models.Player
 import com.example.fantasyquestclicker.domain.models.SkillType
 import kotlin.math.pow
 
+// Класс для генерации стоимости улучшений
 object UpgradeGenerator {
     fun getUpgradeCost(player: Player, skill: SkillType): Int {
         return when (skill) {

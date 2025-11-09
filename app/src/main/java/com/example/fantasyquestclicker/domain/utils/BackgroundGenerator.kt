@@ -2,6 +2,7 @@ package com.example.fantasyquestclicker.domain.utils
 
 import com.example.fantasyquestclicker.R
 
+// Функция для получения фона в зависимости от текущего уровня
 fun getBackgroundForStage(stage: Int): Int {
     val backgroundIndex = (stage - 1) / 5 + 1
     return when (backgroundIndex) {

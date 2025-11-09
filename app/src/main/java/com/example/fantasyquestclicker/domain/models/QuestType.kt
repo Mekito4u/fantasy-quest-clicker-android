@@ -1,9 +1,11 @@
 package com.example.fantasyquestclicker.domain.models
 
+// Модель для типа квеста
 enum class QuestType(
     val displayName: String,
     val description: String
 ) {
+    // Каждый тип квеста имеет свое название и описание
     KILL_COUNT("⚔️ ОХОТА", "Убейте врагов"),
     STAGE_PROGRESS("🏆 СТАДИИ", "Пройдите\nстадии"),
     GOLD_EARN("💰 ЗОЛОТО", "Заработайте золота"),

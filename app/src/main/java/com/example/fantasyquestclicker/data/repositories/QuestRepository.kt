@@ -10,8 +10,9 @@ import kotlinx.coroutines.flow.first
 
 private val Context.questDataStore: DataStore<Preferences> by preferencesDataStore(name = "quest_data")
 
+// Репозиторий для работы с квестами
 class QuestRepository(private val context: Context) {
-
+    // Сохранение квестов
     suspend fun saveQuests(quests: List<Quest>) {
         context.questDataStore.edit { preferences ->
             quests.forEachIndexed { index, quest ->
@@ -24,6 +25,7 @@ class QuestRepository(private val context: Context) {
         }
     }
 
+    // Загрузка квестов
     suspend fun loadQuests(): List<Quest> {
         val preferences = context.questDataStore.data.first()
         val count = preferences[intPreferencesKey("quests_count")] ?: 0

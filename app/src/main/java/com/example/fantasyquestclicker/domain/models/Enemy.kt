@@ -1,5 +1,6 @@
 package com.example.fantasyquestclicker.domain.models
 
+// Модель врага
 data class Enemy(
     val id: Int,
     val name: String,

@@ -1,5 +1,6 @@
 package com.example.fantasyquestclicker.domain.utils
 
+// Класс для хранения типов врагов
 object EnemyTypes {
     val types = listOf(
         EnemyType("Скелет", "💀"),

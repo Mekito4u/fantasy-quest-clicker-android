@@ -4,6 +4,7 @@ import com.example.fantasyquestclicker.domain.models.Enemy
 import com.example.fantasyquestclicker.domain.models.Player
 import com.example.fantasyquestclicker.domain.models.AttackResult
 
+// UseCase для атаки врага
 class AttackEnemyUseCase {
     operator fun invoke(player: Player, enemy: Enemy): AttackResult {
         val damage = player.calculateDamage()
@@ -17,6 +18,7 @@ class AttackEnemyUseCase {
             player
         }
 
+        // Возвращаем результат атаки
         return AttackResult(
             damageDealt = damage,
             isEnemyDefeated = isEnemyDefeated,

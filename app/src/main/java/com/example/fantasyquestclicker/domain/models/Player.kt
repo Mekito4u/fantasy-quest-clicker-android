@@ -1,5 +1,6 @@
 package com.example.fantasyquestclicker.domain.models
 
+// Модель игрока
 data class Player(
     val gold: Int = 0,
     val baseAttack: Int = 5,

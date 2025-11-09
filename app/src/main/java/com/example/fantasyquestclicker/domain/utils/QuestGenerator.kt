@@ -4,9 +4,11 @@ import com.example.fantasyquestclicker.domain.models.Player
 import com.example.fantasyquestclicker.domain.models.Quest
 import com.example.fantasyquestclicker.domain.models.QuestType
 
+// Класс для генерации квестов
 object QuestGenerator {
     private var generatedQuests: List<Quest> = emptyList()
 
+    // Возвращает список сгенерированных квестов
     fun getQuests(player: Player): List<Quest> {
         if (generatedQuests.isEmpty()) {
             generatedQuests = QuestType.entries.map { type ->
@@ -16,10 +18,12 @@ object QuestGenerator {
         return generatedQuests
     }
 
+    // Возвращает текущий квест по типу
     fun getQuest(questType: QuestType): Quest? {
         return generatedQuests.firstOrNull { it.type == questType }
     }
 
+    // Возвращает прогресс выполнения квеста
     fun getQuestProgress(player: Player, questType: QuestType): Int {
         return when (questType) {
             QuestType.KILL_COUNT -> player.totalKillsEnemy
@@ -30,6 +34,7 @@ object QuestGenerator {
         }
     }
 
+    // Генерирует новый квест по типу
     private fun generateQuest(player: Player, questType: QuestType): Quest {
         val target = when (questType) {
             QuestType.KILL_COUNT -> (5 + player.currentStage..20 + player.currentStage * 2).random()
@@ -60,12 +65,14 @@ object QuestGenerator {
         )
     }
 
+    // Заменяет текущий квест на новый
     fun replaceQuest(player: Player, questType: QuestType) {
         generatedQuests = generatedQuests.map {
             if (it.type == questType) generateQuest(player, questType) else it
         }
     }
 
+    // Восстанавливает список квестов
     fun restoreQuests(quests: List<Quest>) {
         generatedQuests = quests
     }

@@ -9,8 +9,9 @@ import kotlinx.coroutines.flow.first
 
 private val Context.playerDataStore: DataStore<Preferences> by preferencesDataStore(name = "player_data")
 
+// Репозиторий для работы с данными игрока
 class PlayerRepository(private val context: Context) {
-
+    // Ключи для хранения данных в DataStore
     companion object {
         private val GOLD_KEY = intPreferencesKey("gold")
         private val BASE_ATTACK_KEY = intPreferencesKey("base_attack")
@@ -23,6 +24,7 @@ class PlayerRepository(private val context: Context) {
         private val TOTAL_GOLD_EARNED_KEY = intPreferencesKey("total_gold_earned")
     }
 
+    // Сохранение игрока в DataStore
     suspend fun savePlayer(player: Player) {
         context.playerDataStore.edit { preferences ->
             preferences[GOLD_KEY] = player.gold
@@ -37,6 +39,7 @@ class PlayerRepository(private val context: Context) {
         }
     }
 
+    // Загрузка игрока из DataStore
     suspend fun loadPlayer(): Player {
         val preferences = context.playerDataStore.data.first()
         return Player(

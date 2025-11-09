@@ -6,6 +6,7 @@ import com.example.fantasyquestclicker.domain.utils.QuestGenerator
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
+// Реализация репозитория для сохранения и загрузки прогресса игрока
 class GameRepository(
     private val playerRepository: PlayerRepository,
     private val questRepository: QuestRepository

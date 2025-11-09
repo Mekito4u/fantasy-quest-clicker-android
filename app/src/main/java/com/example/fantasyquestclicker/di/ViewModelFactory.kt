@@ -10,6 +10,7 @@ import com.example.fantasyquestclicker.ui.theme.viewmodels.BattleViewModel
 import com.example.fantasyquestclicker.ui.theme.viewmodels.QuestsViewModel
 import com.example.fantasyquestclicker.ui.theme.viewmodels.SkillsViewModel
 
+// Класс ViewModelFactory для создания экземпляров ViewModel
 @Suppress("UNCHECKED_CAST")
 class ViewModelFactory(private val context: Context) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
@@ -17,6 +18,7 @@ class ViewModelFactory(private val context: Context) : ViewModelProvider.Factory
         val questRepository = QuestRepository(context)
         val gameRepository = GameRepository(playerRepository, questRepository)
 
+        // Создание экземпляров ViewModel в зависимости от класса
         return when {
             modelClass.isAssignableFrom(BattleViewModel::class.java) -> {
                 BattleViewModel(gameRepository) as T

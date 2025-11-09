@@ -2,6 +2,7 @@ package com.example.fantasyquestclicker.domain.use_cases
 
 import com.example.fantasyquestclicker.domain.models.Player
 
+// Use case для обновления прогресса игрока
 class StageProgressUseCase {
     operator fun invoke(player: Player): Player {
         val newEnemiesDefeated = player.enemiesDefeated + 1

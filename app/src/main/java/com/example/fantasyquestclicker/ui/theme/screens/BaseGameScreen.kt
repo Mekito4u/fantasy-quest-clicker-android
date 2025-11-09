@@ -49,6 +49,7 @@ fun BaseGameScreen(
     BaseScreen(
         backgroundColor = backgroundColor,
         topContent = {
+            // ВЕРХНЯЯ ПАНЕЛЬ
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -89,6 +90,7 @@ fun BaseGameScreen(
             }
         },
         centerContent = {
+            // ЦЕНТРАЛЬНЫЙ КОНТЕНТ
             Image(
                 painter = painterResource(backgroundRes),
                 contentDescription = "Background",
@@ -265,6 +267,7 @@ enum class TriangleDirection {
     LEFT, RIGHT
 }
 
+// КНОПКА С ТРЕУГОЛЬНИКАМИ
 @Composable
 private fun TriangleButton(
     onClick: () -> Unit,

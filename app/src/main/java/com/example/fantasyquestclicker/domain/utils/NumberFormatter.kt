@@ -1,5 +1,6 @@
 package com.example.fantasyquestclicker.domain.utils
 
+// Класс для форматирования чисел
 object NumberFormatter {
     fun formatNumber(number: Int): String {
         return when {
