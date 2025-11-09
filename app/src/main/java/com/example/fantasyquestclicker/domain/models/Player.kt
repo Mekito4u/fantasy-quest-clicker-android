@@ -11,6 +11,7 @@ data class Player(
     val enemiesDefeated: Int = 0,
     val criticalChance: Double = 0.0,
     val upgradeSkills: Int = 0,
+    val totalGoldEarned: Int = 0
 ) {
     fun calculateDamage(): Int = if (Math.random() < criticalChance) baseAttack * 2 else baseAttack
 

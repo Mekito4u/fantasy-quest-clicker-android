@@ -1,9 +1,11 @@
 package com.example.fantasyquestclicker.ui.theme.screens
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
@@ -12,11 +14,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.fantasyquestclicker.domain.models.Player
 import com.example.fantasyquestclicker.domain.utils.NumberFormatter.formatNumber
+import com.example.fantasyquestclicker.domain.utils.getBackgroundForStage
 
 @Composable
 fun BaseGameScreen(
@@ -28,7 +34,6 @@ fun BaseGameScreen(
     currentScreen: String = "battle",
     onScreenChange: (String) -> Unit = {},
 
-    onBackClick: () -> Unit = {},
     onCenterClick: () -> Unit = {},
 
     centerAdditionalContentTop: @Composable () -> Unit = {},
@@ -37,6 +42,10 @@ fun BaseGameScreen(
 
     backgroundColor: Color = Color(0xFF1E1E1E)
 ) {
+    val backgroundRes = remember(player.currentStage) {
+        getBackgroundForStage(player.currentStage)
+    }
+
     BaseScreen(
         backgroundColor = backgroundColor,
         topContent = {
@@ -44,42 +53,48 @@ fun BaseGameScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(8.dp),
-                horizontalArrangement = Arrangement.SpaceBetween,
+                horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Box(modifier = Modifier.weight(0.8f)) {
-                    TextButton(onClick = {
-                        when (currentScreen) {
-                            "skills", "quests" -> onScreenChange("battle")
-                            "battle" -> onBackClick()
-                        }
-                    }) {
-                        Text("Назад", color = Color.White, fontSize = 22.sp)
-                    }
-                }
+                Text(
+                    text = "(${player.enemiesDefeated}/10)",
+                    color = Color.White,
+                    fontSize = 22.sp,
+                    textAlign = TextAlign.Start,
+                    modifier = Modifier.weight(0.5f)
+                )
 
-                Spacer(modifier = Modifier.weight(0.1f))
+                Text(
+                    text = when ((player.currentStage - 1) / 5 + 1) {
+                        1 -> "Светлая Долина"
+                        2 -> "Заброшенная Деревня"
+                        3 -> "Врата Руин"
+                        4 -> "Мрачный Лес"
+                        5 -> "Болота Смерти"
+                        else -> "Гнездо Дракона"
+                    } + " ${player.currentStage}",
+                    color = Color.White,
+                    fontSize = 22.sp,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.weight(1f)
+                )
 
-                Box(modifier = Modifier.weight(1f)) {
-                    Text(
-                        text = "Золото: ${formatNumber(player.gold)}",
-                        color = Color(0xFFFFD700),
-                        fontSize = 22.sp
-                    )
-                }
-
-                Spacer(modifier = Modifier.weight(0.1f))
-
-                Box(modifier = Modifier.weight(0.8f)) {
-                    Text(
-                        "Стадия: ${player.currentStage}\n   (${player.enemiesDefeated}/10)",
-                        color = Color.White,
-                        fontSize = 22.sp
-                    )
-                }
+                Text(
+                    text = "\uD83E\uDE99: ${formatNumber(player.gold)}",
+                    color = Color(0xFFFFD700),
+                    fontSize = 22.sp,
+                    textAlign = TextAlign.End,
+                    modifier = Modifier.weight(0.5f)
+                )
             }
         },
         centerContent = {
+            Image(
+                painter = painterResource(backgroundRes),
+                contentDescription = "Background",
+                modifier = Modifier.fillMaxSize(),
+                contentScale = ContentScale.Crop
+            )
             Column(
                 modifier = Modifier
                     .fillMaxSize()
@@ -149,8 +164,8 @@ fun BaseGameScreen(
                         Box(
                             modifier = Modifier
                                 .fillMaxWidth(0.5f)
-                                .aspectRatio(225f / 294f)
-                                .background(Color.DarkGray, RoundedCornerShape(16.dp)),
+                                .aspectRatio(225f / 294f),
+                                //.background(Color.DarkGray, RoundedCornerShape(16.dp)),
                             contentAlignment = Alignment.Center
                         ) {
                             centerMainContent()

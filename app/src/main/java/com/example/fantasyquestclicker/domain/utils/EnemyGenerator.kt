@@ -2,12 +2,13 @@ package com.example.fantasyquestclicker.domain.utils
 
 import com.example.fantasyquestclicker.domain.models.Enemy
 import com.example.fantasyquestclicker.domain.utils.EnemyTypes.types
+import kotlin.math.pow
 import kotlin.random.Random
 
 object EnemyGenerator {
     fun generateEnemy(stage: Int, isBoss: Boolean = false): Enemy {
-        val health = 10 + (stage * 20)
-        val reward = 10 + (stage * 5)
+        val health = (10 * stage.toDouble().pow(1.8)).toInt()
+        val reward = (8 * stage.toDouble().pow(1.4)).toInt()
 
         val selectedType = types.random()
         val name = if (isBoss) "Босс ${selectedType.name}" else selectedType.name

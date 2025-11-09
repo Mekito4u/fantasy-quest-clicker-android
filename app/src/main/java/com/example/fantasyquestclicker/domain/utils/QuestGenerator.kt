@@ -16,15 +16,8 @@ object QuestGenerator {
         return generatedQuests
     }
 
-    fun getQuest(questType: QuestType): Quest {
-        if (generatedQuests.isEmpty()) {
-            return Quest(
-                type = questType,
-                targetValue = 10,
-                reward = 100
-            )
-        }
-        return generatedQuests.first { it.type == questType }
+    fun getQuest(questType: QuestType): Quest? {
+        return generatedQuests.firstOrNull { it.type == questType }
     }
 
     fun getQuestProgress(player: Player, questType: QuestType): Int {
@@ -40,17 +33,16 @@ object QuestGenerator {
     private fun generateQuest(player: Player, questType: QuestType): Quest {
         val target = when (questType) {
             QuestType.KILL_COUNT -> (5 + player.currentStage..20 + player.currentStage * 2).random()
-            QuestType.STAGE_PROGRESS -> (1 + player.currentStage / 3..5 + player.currentStage / 2).random()
-            QuestType.GOLD_EARN -> (100 + player.currentStage * 50..1000 + player.currentStage * 100).random()
-            QuestType.TOTAL_KILLS -> (50 + player.enemiesDefeated..100 + player.enemiesDefeated).random()
+            QuestType.STAGE_PROGRESS -> (1 + player.currentStage..5 + player.currentStage).random()
+            QuestType.GOLD_EARN -> maxOf(500, (player.totalGoldEarned * 1.15).toInt())
+            QuestType.TOTAL_KILLS -> maxOf(500, (player.totalKills * 1.15).toInt())
             QuestType.UPGRADE_SKILLS -> (2..10).random()
         }
-
         val reward = when (questType) {
             QuestType.KILL_COUNT -> target * 2 + player.currentStage * 5
             QuestType.STAGE_PROGRESS -> target * 10 + player.currentStage * 20
             QuestType.GOLD_EARN -> (target * 0.1).toInt()
-            QuestType.TOTAL_KILLS -> target / 2 + player.currentStage * 10
+            QuestType.TOTAL_KILLS -> (target * 0.1).toInt()
             QuestType.UPGRADE_SKILLS -> target * 15 + player.currentStage * 25
         }
 
@@ -68,7 +60,13 @@ object QuestGenerator {
         )
     }
 
-    fun clearQuests() {
-        generatedQuests = emptyList()
+    fun replaceQuest(player: Player, questType: QuestType) {
+        generatedQuests = generatedQuests.map {
+            if (it.type == questType) generateQuest(player, questType) else it
+        }
+    }
+
+    fun restoreQuests(quests: List<Quest>) {
+        generatedQuests = quests
     }
 }

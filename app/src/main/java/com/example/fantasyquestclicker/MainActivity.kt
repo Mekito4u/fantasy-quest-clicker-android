@@ -19,17 +19,14 @@ class MainActivity : ComponentActivity() {
                 "battle" -> BattleScreen(
                     currentScreen = currentScreen,
                     onScreenChange = { newScreen -> currentScreen = newScreen },
-                    onBackClick = { finish() }
                 )
                 "skills" -> SkillsScreen(
                     currentScreen = currentScreen,
                     onScreenChange = { newScreen -> currentScreen = newScreen },
-                    onBackClick = { currentScreen = "battle" }
                 )
                 "quests" -> QuestsScreen(
                     currentScreen = currentScreen,
                     onScreenChange = { newScreen -> currentScreen = newScreen },
-                    onBackClick = { currentScreen = "quests" }
                 )
             }
         }

@@ -8,26 +8,23 @@ class SkillsViewModel(
 ) : BaseGameViewModel(gameRepository) {
 
     fun upgradeSkill(skillType: SkillType) {
-        val cost = skillType.getUpgradeCost(_playerState.value)
         val currentPlayer = _playerState.value
+        val cost = skillType.getUpgradeCost(currentPlayer)
 
-        if (currentPlayer.gold >= cost) {
-            val updatedPlayer = when (skillType) {
-                SkillType.ATTACK -> currentPlayer.copy(
-                    gold = currentPlayer.gold - cost,
-                    baseAttack = currentPlayer.baseAttack + 5
-                )
-                SkillType.TIME -> currentPlayer.copy(
-                    gold = currentPlayer.gold - cost,
-                    maxTime = currentPlayer.maxTime + 5
-                )
-                SkillType.CRITICAL -> currentPlayer.copy(
-                    gold = currentPlayer.gold - cost,
-                    criticalChance = (currentPlayer.criticalChance + 0.01).coerceAtMost(0.5)
+        val updatedPlayer = currentPlayer.copy(
+            gold = currentPlayer.gold - cost,
+            upgradeSkills = currentPlayer.upgradeSkills + 1
+        ).let { basePlayer ->
+            when (skillType) {
+                SkillType.ATTACK -> basePlayer.copy(baseAttack = basePlayer.baseAttack + 5)
+                SkillType.TIME -> basePlayer.copy(maxTime = basePlayer.maxTime + 5)
+                SkillType.CRITICAL -> basePlayer.copy(
+                    criticalChance = (basePlayer.criticalChance + 0.01).coerceAtMost(0.5)
                 )
             }
-            _playerState.value = updatedPlayer
-            savePlayerProgress()
         }
+
+        _playerState.value = updatedPlayer
+        savePlayerProgress()
     }
 }

@@ -2,98 +2,78 @@ package com.example.fantasyquestclicker.domain.use_cases
 
 import com.example.fantasyquestclicker.domain.models.Enemy
 import com.example.fantasyquestclicker.domain.models.Player
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class AttackEnemyUseCaseTest {
-
-    // Тест на обычную атаку
-    @Test
-    fun `execute should reduce enemy health without defeating when health remains`() {
-        // Предусловия
-        val player = Player(baseAttack = 10, gold = 0)
-        val enemy = Enemy(
+    // Создание тестового противника
+    private fun createTestEnemy(
+        currentHealth: Int = 50,
+        maxHealth: Int = 50,
+        baseReward: Int = 25
+    ): Enemy {
+        return Enemy(
+            currentHealth = currentHealth,
+            maxHealth = maxHealth,
             id = 1,
-            name = "Гоблин",
-            currentHealth = 50,
-            maxHealth = 50,
-            baseReward = 25,
-            imageRes = "goblin"
+            name = "Test Enemy",
+            baseReward = baseReward,
+            imageRes = ""
         )
-        val useCase = AttackEnemyUseCase()
-
-        // Когда
-        val result = useCase.execute(player, enemy)
-
-        // Тогда
-        assertEquals(10, result.damageDealt)
-        assertFalse(result.isEnemyDefeated)
-        assertEquals(0, result.goldReward)
-
-        // Проверяем, что исходные объекты не изменились
-        assertEquals(50, enemy.currentHealth)
-        assertEquals(0, player.gold)
-
-        // Проверяем, что возвращены новые объекты
-        assertEquals(40, result.updatedEnemy.currentHealth)
-        assertEquals(0, result.updatedPlayer.gold)
     }
 
-
-    // Тест на победу
+    // Тест для атаки противника
     @Test
-    fun `execute should defeat enemy and give gold when health reaches zero`() {
-        // Предусловия
-        val player = Player(baseAttack = 50, gold = 0)
-        val enemy = Enemy(
-            id = 1,
-            name = "Гоблин",
-            currentHealth = 50,
-            maxHealth = 50,
-            baseReward = 25,
-            imageRes = "goblin"
-        )
+    fun `attack enemy reduces health`() {
+        // Given - подготовка данных
         val useCase = AttackEnemyUseCase()
+        val player = Player(baseAttack = 10)
+        val enemy = createTestEnemy(currentHealth = 50, maxHealth = 50)
 
-        // Когда
-        val result = useCase.execute(player, enemy)
+        // When - выполнение действия
+        val result = useCase(player, enemy)
 
-        // Тогда
-        assertEquals(50, result.damageDealt)
-        assertTrue(result.isEnemyDefeated)
-        assertEquals(25, result.goldReward)
-
-        // Исходные объекты не изменились
-        assertEquals(50, enemy.currentHealth)
-        assertEquals(0, player.gold)
-
-        // Новые объекты имеют правильные значения
-        assertEquals(0, result.updatedEnemy.currentHealth)
-        assertEquals(25, result.updatedPlayer.gold)
+        // Then - проверка результатов
+        assertTrue("Враг должен получать урон", result.updatedEnemy.currentHealth < enemy.currentHealth)
+        assertEquals("Здоровье должно уменьшаться на атаку игрока", 40, result.updatedEnemy.currentHealth)
     }
 
-    // Тест на то, что золото не добавляется, если враг не побежден
+    // Тест для критической атаки
     @Test
-    fun `execute should not give gold when enemy not defeated`() {
-        // Предусловия
-        val player = Player(baseAttack = 30, gold = 100)
-        val enemy = Enemy(
-            id = 2,
-            name = "Орк",
-            currentHealth = 80,
-            maxHealth = 80,
-            baseReward = 40,
-            imageRes = "orc"
-        )
+    fun `critical attack deals double damage`() {
         val useCase = AttackEnemyUseCase()
+        val player = Player(baseAttack = 10, criticalChance = 1.0) // 100% шанс критического удара
+        val enemy = createTestEnemy(currentHealth = 50, maxHealth = 50)
 
-        // Когда
-        val result = useCase.execute(player, enemy)
+        val result = useCase(player, enemy)
 
-        // Тогда
-        assertFalse(result.isEnemyDefeated)
-        assertEquals(0, result.goldReward)
-        assertEquals(100, result.updatedPlayer.gold) // Золото не изменилось
-        assertEquals(50, result.updatedEnemy.currentHealth) // Здоровье уменьшилось
+        assertTrue("Должен нанести критический урон", result.damageDealt > player.baseAttack)
+        assertEquals("Урон должен быть удвоен", 30, result.updatedEnemy.currentHealth)
+    }
+
+    // Тест что здоровье не может быть ниже нуля
+    @Test
+    fun `enemy health never goes below zero`() {
+        val useCase = AttackEnemyUseCase()
+        val player = Player(baseAttack = 100) // Большой урон
+        val enemy = createTestEnemy(currentHealth = 10, maxHealth = 50) // Мало здоровья
+
+        val result = useCase(player, enemy)
+
+        assertEquals("Здоровье не должно быть ниже нуля", 0, result.updatedEnemy.currentHealth)
+    }
+
+    // Тест на награду за убийство
+    @Test
+    fun `gold reward when enemy defeated`() {
+        val useCase = AttackEnemyUseCase()
+        val player = Player(baseAttack = 60)
+        val enemy = createTestEnemy(currentHealth = 50, maxHealth = 50, baseReward = 25)
+
+        val result = useCase(player, enemy)
+
+        assertTrue("Враг должен быть убит", result.isEnemyDefeated)
+        assertEquals("Игрок должен получить награду за убийство", 25, result.goldReward)
     }
 }

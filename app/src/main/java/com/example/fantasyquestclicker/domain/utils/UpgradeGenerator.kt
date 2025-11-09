@@ -2,13 +2,14 @@ package com.example.fantasyquestclicker.domain.utils
 
 import com.example.fantasyquestclicker.domain.models.Player
 import com.example.fantasyquestclicker.domain.models.SkillType
+import kotlin.math.pow
 
 object UpgradeGenerator {
     fun getUpgradeCost(player: Player, skill: SkillType): Int {
         return when (skill) {
-            SkillType.ATTACK -> 25 + (player.baseAttack * 10)
-            SkillType.TIME -> 250 + (player.maxTime * 5)
-            SkillType.CRITICAL -> 100 + ((player.criticalChance * 100).toInt() * 50)
+            SkillType.ATTACK -> (8 * player.baseAttack.toDouble().pow(1.8)).toInt()
+            SkillType.CRITICAL -> (80 * (player.criticalChance*100).pow(1.3)).toInt()
+            SkillType.TIME -> (10 * player.maxTime.toDouble().pow(1.85)).toInt()
         }
     }
 }

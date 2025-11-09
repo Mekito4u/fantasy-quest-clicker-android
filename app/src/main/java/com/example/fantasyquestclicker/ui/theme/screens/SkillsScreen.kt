@@ -23,7 +23,6 @@ import com.example.fantasyquestclicker.ui.theme.viewmodels.SkillsViewModel
 fun SkillsScreen(
     currentScreen: String = "skills",
     onScreenChange: (String) -> Unit = { _ -> },
-    onBackClick: () -> Unit = {}
 ) {
     val viewModel: SkillsViewModel = viewModel(factory = ViewModelFactory(LocalContext.current))
     val player by viewModel.player.collectAsState()
@@ -57,7 +56,6 @@ fun SkillsScreen(
         onRightArrowClick = onRightArrowClick,
         currentScreen = currentScreen,
         onScreenChange = onScreenChange,
-        onBackClick = onBackClick,
 
         // ЦЕНТРАЛЬНАЯ ЧАСТЬ - ЗАГОЛОВОК
         centerAdditionalContentTop = {

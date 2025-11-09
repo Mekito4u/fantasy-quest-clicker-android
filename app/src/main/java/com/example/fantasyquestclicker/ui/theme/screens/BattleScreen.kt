@@ -21,7 +21,6 @@ import com.example.fantasyquestclicker.ui.theme.viewmodels.BattleViewModel
 fun BattleScreen(
     currentScreen: String = "battle",
     onScreenChange: (String) -> Unit = { _ -> },
-    onBackClick: () -> Unit = {}
 ) {
     val viewModel: BattleViewModel = viewModel(factory = ViewModelFactory(LocalContext.current))
     val enemy by viewModel.currentEnemy.collectAsState()
@@ -36,10 +35,9 @@ fun BattleScreen(
         showNavigationArrows = false,
         currentScreen = currentScreen,
         onScreenChange = onScreenChange,
-        onBackClick = onBackClick,
         onCenterClick = { viewModel.attackEnemy() },
 
-        // ЦЕНТРАЛЬНАЯ ЧАСТЬ - PLAYER HEALTH BAR
+        // ЦЕНТРАЛЬНАЯ ЧАСТЬ - PLAYER BAR
         centerAdditionalContentTop = {
             PlayerTimer(
                 currentTime = player.currentTime,
@@ -54,7 +52,7 @@ fun BattleScreen(
                     .aspectRatio(225f / 294f),
                 contentAlignment = Alignment.Center
             ) {
-                Text(enemy.imageRes, fontSize = 100.sp, color = Color.White)
+                Text(enemy.imageRes, fontSize = 150.sp, color = Color.White)
             }
 
         },

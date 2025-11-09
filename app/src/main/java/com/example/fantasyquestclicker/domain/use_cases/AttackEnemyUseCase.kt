@@ -11,7 +11,8 @@ class AttackEnemyUseCase {
         val isEnemyDefeated = updatedEnemy.isDefeated
 
         val updatedPlayer = if (isEnemyDefeated) {
-            player.copy(gold = player.gold + enemy.baseReward)
+            player.copy(gold = player.gold + enemy.baseReward,
+                totalGoldEarned = player.totalGoldEarned + enemy.baseReward)
         } else {
             player
         }

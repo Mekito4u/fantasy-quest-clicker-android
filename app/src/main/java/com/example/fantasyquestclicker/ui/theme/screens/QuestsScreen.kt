@@ -25,12 +25,10 @@ import com.example.fantasyquestclicker.ui.theme.viewmodels.QuestsViewModel
 fun QuestsScreen(
     currentScreen: String = "quests",
     onScreenChange: (String) -> Unit = { _ -> },
-    onBackClick: () -> Unit = {}
 ) {
     val viewModel: QuestsViewModel = viewModel(factory = ViewModelFactory(LocalContext.current))
     val player by viewModel.player.collectAsState()
     val quests = remember { mutableStateOf(emptyList<Quest>()) }
-
 
     LaunchedEffect(Unit) {
         viewModel.loadPlayerProgress()
@@ -38,6 +36,8 @@ fun QuestsScreen(
     }
 
     var selectedQuest by remember { mutableStateOf(QuestType.KILL_COUNT) }
+    val currentQuest = getQuest(selectedQuest)
+    val progress = getQuestProgress(player, selectedQuest)
 
     // ФУНКЦИИ ДЛЯ СТРЕЛОК
     val onLeftArrowClick = {
@@ -67,7 +67,6 @@ fun QuestsScreen(
         onRightArrowClick = onRightArrowClick,
         currentScreen = currentScreen,
         onScreenChange = onScreenChange,
-        onBackClick = onBackClick,
 
         // ЦЕНТРАЛЬНАЯ ЧАСТЬ - ЗАГОЛОВОК
         centerAdditionalContentTop = {
@@ -96,10 +95,9 @@ fun QuestsScreen(
                 Spacer(modifier = Modifier.fillMaxHeight(0.25f))
                 // ОПИСАНИЕ
                 Text(
-                    if(selectedQuest == QuestType.KILL_COUNT) {
-                        ("${selectedQuest.description}\n${QuestGenerator.getQuest(QuestType.KILL_COUNT)?.targetName}")
-                    }
-                    else{
+                    text = if (selectedQuest == QuestType.KILL_COUNT) {
+                        "${selectedQuest.description}\n${currentQuest?.targetName}"
+                    } else {
                         selectedQuest.description
                     },
                     color = Color.Gray,
@@ -109,13 +107,28 @@ fun QuestsScreen(
                         .fillMaxWidth(0.8f)
                 )
                 Spacer(modifier = Modifier.fillMaxHeight(0.2f))
-                // Награда
-                Text(
-                    "Награда: ${getQuest(selectedQuest).reward}",
-                    color = Color(0xFFFFA726),
-                    fontSize = 20.sp,
-                    fontWeight = FontWeight.Bold
-                )
+
+                val isCompleted = currentQuest?.let { progress >= it.targetValue } ?: false
+
+                if (isCompleted) {
+                    Button(
+                        onClick = {
+                            currentQuest.let { quest ->
+                                viewModel.claimReward(quest)
+                            }
+                        },
+                        colors = ButtonDefaults.buttonColors(containerColor = Color.Green)
+                    ) {
+                        Text("Забрать ${currentQuest.reward} золота")
+                    }
+                } else {
+                    Text(
+                        "Награда: ${currentQuest?.reward}",
+                        color = Color(0xFFFFA726),
+                        fontSize = 20.sp,
+                        fontWeight = FontWeight.Bold
+                    )
+                }
                 Spacer(modifier = Modifier.fillMaxHeight(0.02f))
             }
         },
@@ -134,7 +147,7 @@ fun QuestsScreen(
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 QuestBar(
-                    targetValue = getQuest(selectedQuest).targetValue,
+                    targetValue = currentQuest?.targetValue ?: 0,
                     completedCount = getQuestProgress(player, selectedQuest),
                     modifier = Modifier
                         .fillMaxWidth(0.9f)

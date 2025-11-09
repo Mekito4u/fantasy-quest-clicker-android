@@ -4,7 +4,7 @@ object NumberFormatter {
     fun formatNumber(number: Int): String {
         return when {
             number >= 1_000_000 -> "${number / 1_000_000}M"
-            number >= 1_000 -> "${number / 1_000}K"
+            number >= 1_000 -> "${number / 1_000}.${(number%1_000)/100}К"
             else -> number.toString()
         }
     }
