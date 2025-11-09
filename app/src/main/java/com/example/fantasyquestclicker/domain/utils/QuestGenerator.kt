@@ -36,7 +36,7 @@ object QuestGenerator {
             QuestType.STAGE_PROGRESS -> (1 + player.currentStage..5 + player.currentStage).random()
             QuestType.GOLD_EARN -> maxOf(500, (player.totalGoldEarned * 1.15).toInt())
             QuestType.TOTAL_KILLS -> maxOf(500, (player.totalKills * 1.15).toInt())
-            QuestType.UPGRADE_SKILLS -> (2..10).random()
+            QuestType.UPGRADE_SKILLS -> maxOf(5, (player.upgradeSkills * 1.20).toInt())
         }
         val reward = when (questType) {
             QuestType.KILL_COUNT -> target * 2 + player.currentStage * 5

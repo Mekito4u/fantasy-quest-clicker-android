@@ -74,7 +74,7 @@ fun BaseGameScreen(
                         else -> "Гнездо Дракона"
                     } + " ${player.currentStage}",
                     color = Color.White,
-                    fontSize = 22.sp,
+                    fontSize = 20.sp,
                     textAlign = TextAlign.Center,
                     modifier = Modifier.weight(1f)
                 )
@@ -209,7 +209,7 @@ fun BaseGameScreen(
                         ),
                         enabled = currentScreen != "battle"
                     ) {
-                        Text("Бой", fontSize = 18.sp, fontWeight = FontWeight.Bold)
+                        Text("Бой", fontSize = 16.sp, fontWeight = FontWeight.Bold)
                     }
                 }
 
@@ -231,7 +231,7 @@ fun BaseGameScreen(
                         ),
                         enabled = currentScreen != "quests"
                     ) {
-                        Text("Квесты", fontSize = 18.sp, fontWeight = FontWeight.Bold)
+                        Text("Квесты", fontSize = 16.sp, fontWeight = FontWeight.Bold)
                     }
                 }
 
@@ -253,7 +253,7 @@ fun BaseGameScreen(
                         ),
                         enabled = currentScreen != "skills"
                     ) {
-                        Text("Навыки", fontSize = 18.sp, fontWeight = FontWeight.Bold)
+                        Text("Навыки", fontSize = 16.sp, fontWeight = FontWeight.Bold)
                     }
                 }
             }

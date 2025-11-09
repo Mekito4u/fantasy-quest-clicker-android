@@ -12,7 +12,7 @@ fun PlayerTimer(
 ) {
     Text(
         text = "⏰ ${formatTime(currentTime)}",
-        color = Color.Black,
+        color = Color.White,
         fontSize = 22.sp
     )
 }
