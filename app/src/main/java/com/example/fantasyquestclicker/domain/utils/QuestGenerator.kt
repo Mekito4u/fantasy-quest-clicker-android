@@ -3,6 +3,7 @@ package com.example.fantasyquestclicker.domain.utils
 import com.example.fantasyquestclicker.domain.models.Player
 import com.example.fantasyquestclicker.domain.models.Quest
 import com.example.fantasyquestclicker.domain.models.QuestType
+import kotlin.math.pow
 
 // Класс для генерации квестов
 object QuestGenerator {
@@ -28,7 +29,7 @@ object QuestGenerator {
         return when (questType) {
             QuestType.KILL_COUNT -> player.totalKillsEnemy
             QuestType.STAGE_PROGRESS -> player.currentStage
-            QuestType.GOLD_EARN -> player.gold
+            QuestType.GOLD_EARN -> player.totalGoldEarned
             QuestType.TOTAL_KILLS -> player.totalKills
             QuestType.UPGRADE_SKILLS -> player.upgradeSkills
         }
@@ -44,10 +45,10 @@ object QuestGenerator {
             QuestType.UPGRADE_SKILLS -> maxOf(5, (player.upgradeSkills * 1.20).toInt())
         }
         val reward = when (questType) {
-            QuestType.KILL_COUNT -> target * 2 + player.currentStage * 5
+            QuestType.KILL_COUNT -> target * (player.currentStage.toDouble().pow(1.4)).toInt()
             QuestType.STAGE_PROGRESS -> target * 10 + player.currentStage * 20
             QuestType.GOLD_EARN -> (target * 0.1).toInt()
-            QuestType.TOTAL_KILLS -> (target * 0.1).toInt()
+            QuestType.TOTAL_KILLS -> target * 2
             QuestType.UPGRADE_SKILLS -> target * 15 + player.currentStage * 25
         }
 

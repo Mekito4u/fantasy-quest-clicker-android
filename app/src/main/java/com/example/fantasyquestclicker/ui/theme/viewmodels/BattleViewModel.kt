@@ -1,9 +1,12 @@
 package com.example.fantasyquestclicker.ui.theme.viewmodels
 
 import androidx.lifecycle.viewModelScope
-import com.example.fantasyquestclicker.domain.models.*
+import com.example.fantasyquestclicker.domain.models.Enemy
+import com.example.fantasyquestclicker.domain.models.Player
+import com.example.fantasyquestclicker.domain.models.QuestType
 import com.example.fantasyquestclicker.domain.repositories.GameRepository
-import com.example.fantasyquestclicker.domain.use_cases.*
+import com.example.fantasyquestclicker.domain.use_cases.AttackEnemyUseCase
+import com.example.fantasyquestclicker.domain.use_cases.StageProgressUseCase
 import com.example.fantasyquestclicker.domain.utils.EnemyGenerator
 import com.example.fantasyquestclicker.domain.utils.QuestGenerator
 import kotlinx.coroutines.Job
@@ -14,15 +17,26 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 
-// ViewModel для боя
+/**
+ * ViewModel, управляющий состоянием и логикой экрана боя.
+ * Обрабатывает взаимодействие игрока: атаки, таймер уровня, смену врагов.
+ * @param gameRepository Репозиторий для доступа к игровым данным.
+ */
 class BattleViewModel(
     gameRepository: GameRepository
 ) : BaseGameViewModel(gameRepository) {
     private var stageTimerJob: Job? = null
     private val _currentEnemy = MutableStateFlow(EnemyGenerator.generateEnemy(stage = 1))
+
+    /**
+     * Поток состояния текущего врага на экране. Подписывайся на него для обновления UI.
+     */
     val currentEnemy: StateFlow<Enemy> = _currentEnemy.asStateFlow()
 
-    // Загрузка игрока
+    /**
+     * Вызывается при успешной загрузке данных игрока. Инициализирует уровень.
+     * @param player Загруженный объект игрока.
+     */
     override fun onPlayerLoaded(player: Player) {
         spawnNewEnemy()
         startStageTimer()
@@ -32,7 +46,10 @@ class BattleViewModel(
     private val attackEnemyUseCase = AttackEnemyUseCase()
     private val stageProgressUseCase = StageProgressUseCase()
 
-    // Таймер для стадии
+    /**
+     * Запускает таймер, который каждую секунду уменьшает время на уровне.
+     * Таймер автоматически отменяется при очистке ViewModel.
+     */
     private fun startStageTimer() {
         stageTimerJob?.cancel()
         stageTimerJob = viewModelScope.launch {
@@ -43,7 +60,9 @@ class BattleViewModel(
         }
     }
 
-    // Уменьшение времени на стадии
+    /**
+     * Уменьшает текущее время игрока на 1 и проверяет, не проиграл ли он.
+     */
     private fun decreaseStageTime() {
         val currentPlayer = _playerState.value
         if (currentPlayer.currentTime > 0) {
@@ -58,7 +77,9 @@ class BattleViewModel(
         }
     }
 
-    // Спавн нового врага
+    /**
+     * Создаёт нового врага в соответствии с текущим этапом и прогрессом игрока.
+     */
     private fun spawnNewEnemy() {
         val currentPlayer = _playerState.value
         val isBoss = currentPlayer.isBossFight
@@ -71,7 +92,10 @@ class BattleViewModel(
         _currentEnemy.value = newEnemy
     }
 
-    // Атака врага
+    /**
+     * Основной метод для обработки атаки игрока. Вызывается из UI по нажатию.
+     * Выполняет Use Case атаки, обновляет состояния игрока и врага, обрабатывает последствия.
+     */
     fun attackEnemy() {
         val result = attackEnemyUseCase(_playerState.value, _currentEnemy.value)
         val currentEnemy = _currentEnemy.value
@@ -101,7 +125,9 @@ class BattleViewModel(
         savePlayerProgress()
     }
 
-    // Обработка победы врага
+    /**
+     * Обрабатывает логику после победы над врагом: обновляет прогресс уровня и спавнит нового врага.
+     */
     private fun handleEnemyDefeat() {
         val playerAfterProgress = stageProgressUseCase(_playerState.value)
         _playerState.value = playerAfterProgress
@@ -110,7 +136,9 @@ class BattleViewModel(
         spawnNewEnemy()
     }
 
-    // Обработка поражения игрока
+    /**
+     * Сбрасывает прогресс уровня при поражении игрока (закончилось время).
+     */
     private fun handlePlayerDefeat() {
         val resetPlayer = _playerState.value.copy(
             enemiesDefeated = 0,

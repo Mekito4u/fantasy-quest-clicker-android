@@ -2,16 +2,27 @@ package com.example.fantasyquestclicker.data.repositories
 
 import android.content.Context
 import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.*
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.floatPreferencesKey
+import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import com.example.fantasyquestclicker.domain.models.Player
 import kotlinx.coroutines.flow.first
 
+// Расширение для доступа к DataStore с именем "player_data"
 private val Context.playerDataStore: DataStore<Preferences> by preferencesDataStore(name = "player_data")
 
-// Репозиторий для работы с данными игрока
+/**
+ * Репозиторий для сохранения и загрузки прогресса игрока.
+ * Использует Android DataStore (Preferences) для локального хранения данных на устройстве.
+ * @param context Контекст приложения, необходимый для доступа к DataStore.
+ */
 class PlayerRepository(private val context: Context) {
-    // Ключи для хранения данных в DataStore
+    /**
+     * Объект-компаньон, содержащий ключи для доступа к данным в хранилище.
+     * Каждое свойство модели Player сохраняется под своим уникальным ключом.
+     */
     companion object {
         private val GOLD_KEY = intPreferencesKey("gold")
         private val BASE_ATTACK_KEY = intPreferencesKey("base_attack")
@@ -24,7 +35,10 @@ class PlayerRepository(private val context: Context) {
         private val TOTAL_GOLD_EARNED_KEY = intPreferencesKey("total_gold_earned")
     }
 
-    // Сохранение игрока в DataStore
+    /**
+     * Асинхронно сохраняет все данные текущего игрока в постоянное хранилище.
+     * @param player Объект Player, данные которого нужно сохранить.
+     */
     suspend fun savePlayer(player: Player) {
         context.playerDataStore.edit { preferences ->
             preferences[GOLD_KEY] = player.gold
@@ -39,7 +53,10 @@ class PlayerRepository(private val context: Context) {
         }
     }
 
-    // Загрузка игрока из DataStore
+    /**
+     * Асинхронно загружает последнее сохранённое состояние игрока.
+     * @return Объект Player с восстановленными данными. Если сохранений нет, возвращаются значения по умолчанию.
+     */
     suspend fun loadPlayer(): Player {
         val preferences = context.playerDataStore.data.first()
         return Player(

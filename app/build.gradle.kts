@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     id("kotlin-kapt")
+    id("org.jetbrains.dokka") version "2.1.0"
 }
 
 android {
@@ -58,10 +59,19 @@ dependencies {
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.9.4")
-    implementation("androidx.compose.runtime:runtime-livedata:1.9.4")
-    implementation("androidx.datastore:datastore-preferences:1.1.7")
-    testImplementation(libs.junit)
-    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.10.2")
-    testImplementation("androidx.test:core:1.7.0")
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
+    implementation(libs.androidx.compose.runtime.livedata)
+    implementation(libs.androidx.datastore.preferences)
+    testImplementation(libs.kotlinx.coroutines.test)
+}
+
+dokka {
+    dokkaSourceSets {
+        named("main") {
+            // Указываем, что — Android
+            sourceRoots.from("src/main/java")
+            sourceRoots.from("src/main/kotlin")
+        }
+    }
+    System.setProperty("org.jetbrains.dokka.experimental.tryK2", "false")
 }

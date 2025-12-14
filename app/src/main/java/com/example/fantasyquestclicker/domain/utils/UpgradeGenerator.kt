@@ -8,8 +8,8 @@ import kotlin.math.pow
 object UpgradeGenerator {
     fun getUpgradeCost(player: Player, skill: SkillType): Int {
         return when (skill) {
-            SkillType.ATTACK -> (8 * player.baseAttack.toDouble().pow(1.8)).toInt()
-            SkillType.CRITICAL -> (80 * (player.criticalChance*100).pow(1.3)).toInt()
+            SkillType.ATTACK -> (8 * player.baseAttack.toDouble().pow(1.3)).toInt()
+            SkillType.CRITICAL -> (80 * (player.criticalChance*100).pow(1.7)).toInt()
             SkillType.TIME -> (10 * player.maxTime.toDouble().pow(1.85)).toInt()
         }
     }
